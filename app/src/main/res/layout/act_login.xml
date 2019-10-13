@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/putih"
+    tools:context=".Activity.LoginAct">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/rlTop"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/photograpy2">
+
+            <TextView
+                android:id="@+id/textWelcome"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:fontFamily="@font/open_sans"
+                android:text="Welcome to"
+                android:textColor="@color/putih"
+                android:textSize="30sp" />
+
+            <TextView
+                android:id="@+id/textApps"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textWelcome"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/open_sans"
+                android:text="MONITORING PROCESS"
+                android:textColor="@color/putih"
+                android:textSize="@dimen/text_font"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="0.5">
+
+            <Button
+                android:id="@+id/btn_sign_in"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPass"
+                android:layout_centerHorizontal="true"
+                android:layout_marginRight="@dimen/margin_big"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:background="@drawable/btn_gradient_blue_rounded"
+                android:fontFamily="@font/open_sans"
+                android:padding="@dimen/margin_small"
+                android:text="MASUK"
+                android:textColor="@color/putih"
+                android:textSize="@dimen/title_font" />
+
+            <ImageView
+                android:id="@+id/imgSupport"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/width100"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="@dimen/margin_big"
+                android:adjustViewBounds="true"
+                android:src="@drawable/bsre" />
+            <TextView
+                android:id="@+id/textHello"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:fontFamily="@font/open_sans"
+                android:text="Hello,"
+                android:textColor="@color/hitam"
+                android:textSize="@dimen/title_big_font"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/textHello2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:fontFamily="@font/open_sans"
+                android:layout_below="@+id/textHello"
+                android:text="Please fill detail below to login"
+                android:textColor="@color/hitam"
+                android:textSize="@dimen/title_font"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etNama"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_standard"
+                android:layout_marginRight="@dimen/margin_standard"
+                android:layout_marginTop="@dimen/margin_standard"
+                android:layout_below="@+id/textHello2"
+                android:hint="Username"
+                android:textColorHint="@color/gray2"
+                app:counterEnabled="true"
+                app:counterMaxLength="25"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_person_blue"
+                    android:fontFamily="@font/open_sans"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/etPass"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etNama"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginLeft="@dimen/margin_standard"
+                android:layout_marginRight="@dimen/margin_standard"
+                android:hint="Password"
+                android:textColorHint="@color/gray2"
+                app:passwordToggleEnabled="true"
+
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_pass_blue"
+                    android:inputType="textPassword"
+                    android:fontFamily="@font/open_sans"
+                    />
+            </com.google.android.material.textfield.TextInputLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:layout_width="@dimen/width100"
+        android:layout_height="@dimen/width100"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin_big"
+        android:background="@drawable/circle_gray"
+        android:src="@drawable/boss"
+        app:civ_border_color="@color/gray2"
+        app:civ_border_width="2dp" />
+</RelativeLayout>
