@@ -4,9 +4,9 @@
 
     <application
         android:allowBackup="true"
-        android:icon="@drawable/ic_android_blue"
+        android:icon="@drawable/dolby"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_android_blue"
+        android:roundIcon="@drawable/dolby"
         android:supportsRtl="true"
         android:theme="@style/Theme.CustomBlue.NoActionBar">
         <activity android:name=".Activity.ContractViewerAct"></activity>

@@ -32,6 +32,7 @@
     <dimen name="width50">50dp</dimen>
     <dimen name="width40">40dp</dimen>
     <dimen name="width30">30dp</dimen>
+    <dimen name="width300">300dp</dimen>
 
     <dimen name="margin_large">50dp</dimen>
     <dimen name="margin_mines_very_small">-2dp</dimen>
@@ -41,4 +42,5 @@
     <dimen name="icon_bottom_margin">24dp</dimen>
     <dimen name="title_bottom_margin">16dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
+    <dimen name="width260">260dp</dimen>
 </resources>
