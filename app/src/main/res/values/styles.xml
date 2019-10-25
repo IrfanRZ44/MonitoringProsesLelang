@@ -32,4 +32,12 @@
         <item name="android:textStyle">normal</item>
         <item name="textAllCaps">true</item>
     </style>
+
+    <style name="MyProgressDialogTheme" parent="ThemeOverlay.AppCompat.Dialog.Alert">
+        <item name="android:background">@color/blue1</item>
+        <item name="colorAccent">@color/putih</item>
+        <item name="android:textColorPrimary">@color/putih</item>
+        <item name="android:textColorSecondary">@color/putih</item>
+        <item name="android:textColor">@color/putih</item>
+    </style>
 </resources>

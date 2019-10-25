@@ -36,6 +36,10 @@
     <color name="grey_300">#E0E0E0</color>
     <color name="grey_500">#9E9E9E</color>
 
-    <color name="gray1">#848484</color>
-    <color name="gray2">#707070</color>
+
+    <color name="red2">#dc3545</color>
+    <color name="biru">#007bff</color>
+
+    <color name="gray1">#f4f4f4</color>
+    <color name="gray2">#626e82</color>
 </resources>

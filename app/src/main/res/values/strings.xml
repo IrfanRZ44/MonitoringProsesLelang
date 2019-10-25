@@ -3,4 +3,8 @@
     <string name="app_name_mean">Document Library</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="username_empty">Username can\'t be empty</string>
+    <string name="password_empty">Password can\'t be empty</string>
+    <string name="imei_empty">Failed to get IMEI</string>
+    <string name="mohon_tunggu">Mohon Tunggu</string>
 </resources>
