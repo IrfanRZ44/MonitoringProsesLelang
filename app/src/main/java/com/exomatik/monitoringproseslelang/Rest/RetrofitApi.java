@@ -1,6 +1,7 @@
 package com.exomatik.monitoringproseslelang.Rest;
 
 
+import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelUser;
 
 import java.util.ArrayList;
@@ -24,4 +25,8 @@ public interface RetrofitApi {
     @Headers("Accept:application/json")
     @POST("loginUser")
     Call<ArrayList<ModelUser>> signIn(@Body Map<String, String> input, @Header("Content-Type") String contentType);
+
+    @Headers("Accept:application/json")
+    @POST("getContract")
+    Call<ArrayList<ModelContract>> getContract(@Body Map<String, String> input, @Header("Content-Type") String contentType);
 }

@@ -12,6 +12,15 @@
         android:background="@drawable/gradient_blue_box_horizontal"
         android:padding="@dimen/margin_standard"
         >
+        <ImageButton
+            android:layout_width="@dimen/width40"
+            android:layout_height="@dimen/width40"
+            android:layout_centerVertical="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/icon_logout"
+            android:background="@drawable/border_circle_transparent_gray"
+            android:id="@+id/btnLogout"
+            />
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

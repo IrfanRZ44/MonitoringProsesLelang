@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelDocs;
 import com.exomatik.monitoringproseslelang.R;
 
@@ -22,16 +23,14 @@ import androidx.recyclerview.widget.RecyclerView;
  * Created by IrfanRZ on 17/09/2018.
  */
 
-public class RecyclerDocs extends RecyclerView.Adapter<RecyclerDocs.bidangViewHolder> {
-    private ArrayList<ModelDocs> dataList;
+public class RecyclerContract extends RecyclerView.Adapter<RecyclerContract.bidangViewHolder> {
+    private ArrayList<ModelContract> dataList;
     private Context context;
     private ProgressDialog progressDialog = null;
-    private Activity activity;
 
-    public RecyclerDocs(ArrayList<ModelDocs> dataList, Context context, Activity activity) {
+    public RecyclerContract(ArrayList<ModelContract> dataList, Context context) {
         this.dataList = dataList;
         this.context = context;
-        this.activity = activity;
     }
 
     @Override
@@ -46,8 +45,8 @@ public class RecyclerDocs extends RecyclerView.Adapter<RecyclerDocs.bidangViewHo
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(bidangViewHolder holder, final int position) {
-        holder.textTitle.setText(dataList.get(position).getNama());
-        holder.textTanggal.setText(dataList.get(position).getTanggal());
+        holder.textTitle.setText(dataList.get(position).getJudulproyek());
+        holder.textTanggal.setText(dataList.get(position).getTglPermintaanproyek());
     }
 
     @Override

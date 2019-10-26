@@ -67,7 +67,6 @@ public class LoginAct extends AppCompatActivity {
                 String imei = getImei();
 
                 if (username.isEmpty() || password.isEmpty() || imei.isEmpty()){
-
                     if (username.isEmpty()){
                         component.makeSnackbar(getString(R.string.username_empty), R.drawable.snakbar_red);
                     } else if (password.isEmpty()){
@@ -77,6 +76,7 @@ public class LoginAct extends AppCompatActivity {
                     }
                 }
                 else{
+                    Log.e("IMEI", imei);
                     progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
                     progressDialog.show();
                     HashMap<String,String> body = new HashMap<String,String>();
@@ -84,7 +84,6 @@ public class LoginAct extends AppCompatActivity {
                     body.put("imei", imei);
                     body.put("username", username);
 
-                    Log.e("Body", body.toString());
                     postLoginUser(body);
                 }
             }

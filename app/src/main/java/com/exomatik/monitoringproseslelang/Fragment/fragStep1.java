@@ -4,9 +4,8 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
-import com.exomatik.monitoringproseslelang.Adapter.RecyclerDocs;
+import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
 import com.exomatik.monitoringproseslelang.Model.ModelDocs;
 import com.exomatik.monitoringproseslelang.R;
 
@@ -24,7 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 public class fragStep1 extends Fragment {
     private View view;
     private RecyclerView rcStep;
-    private RecyclerDocs adapter;
+    private RecyclerContract adapter;
     private ArrayList<ModelDocs> listDocs = new ArrayList<ModelDocs>();
 
     public fragStep1() {
@@ -53,11 +52,11 @@ public class fragStep1 extends Fragment {
     }
 
     private void setAdapter(){
-        adapter = new RecyclerDocs(listDocs, getContext(), getActivity());
-        LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-        rcStep.setLayoutManager(localLinearLayoutManager);
-        rcStep.setNestedScrollingEnabled(false);
-        rcStep.setAdapter(adapter);
+//        adapter = new RecyclerContract(listDocs, getContext(), getActivity());
+//        LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+//        rcStep.setLayoutManager(localLinearLayoutManager);
+//        rcStep.setNestedScrollingEnabled(false);
+//        rcStep.setAdapter(adapter);
     }
 
 }
