@@ -20,10 +20,10 @@
     <dimen name="width120">120dp</dimen>
     <dimen name="width150">150dp</dimen>
     <dimen name="width140">140dp</dimen>
+    <dimen name="width130">130dp</dimen>
     <dimen name="width170">170dp</dimen>
     <dimen name="width180">180dp</dimen>
     <dimen name="width200">200dp</dimen>
-    <dimen name="width130">130dp</dimen>
     <dimen name="width115">115dp</dimen>
     <dimen name="width90">90dp</dimen>
     <dimen name="width80">80dp</dimen>

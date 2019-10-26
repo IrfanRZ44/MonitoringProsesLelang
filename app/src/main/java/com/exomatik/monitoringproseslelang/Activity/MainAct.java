@@ -1,22 +1,26 @@
 package com.exomatik.monitoringproseslelang.Activity;
 
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.ProgressDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Paint;
+import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.ItemClickSupport;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
-import com.exomatik.monitoringproseslelang.Model.ModelUser;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
 
@@ -37,13 +41,15 @@ public class MainAct extends AppCompatActivity {
     private ImageButton btnScan, btnLogout;
     private UserSave userSave;
     private CustomComponent component;
+    private TextView text_nama, text_role, text_email, text_phone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.act_main);
 
         init();
+        setData();
         getDataContract();
         onClick();
     }
@@ -53,9 +59,54 @@ public class MainAct extends AppCompatActivity {
         rcStep = findViewById(R.id.rcContract);
         btnScan = findViewById(R.id.btnScan);
         btnLogout = findViewById(R.id.btnLogout);
+        text_nama = findViewById(R.id.text_nama);
+        text_role = findViewById(R.id.text_role);
+        text_email = findViewById(R.id.text_email);
+        text_phone = findViewById(R.id.text_phone);
 
         userSave = new UserSave(this);
         component = new CustomComponent(view, MainAct.this);
+
+        text_nama.setPaintFlags(text_nama.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
+    }
+
+    private void onClick() {
+        btnScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainAct.this, ScanQR.class));
+            }
+        });
+
+        btnLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                alertLogout();
+            }
+        });
+    }
+
+    private void setData() {
+        text_nama.setText(userSave.getKEY_USER().getNama());
+        text_role.setText(userSave.getKEY_USER().getLevel());
+
+        if (userSave.getKEY_USER().getNohp() == null){
+            text_phone.setText("-");
+        }else if (userSave.getKEY_USER().getNohp().equals("")){
+            text_phone.setText("-");
+        }
+        else {
+            text_phone.setText(userSave.getKEY_USER().getNohp());
+        }
+
+        if (userSave.getKEY_USER().getEmail() == null){
+            text_email.setText("-");
+        }else if (userSave.getKEY_USER().getEmail().equals("")){
+            text_email.setText("-");
+        }
+        else {
+            text_email.setText(userSave.getKEY_USER().getEmail());
+        }
     }
 
     private void getDataContract(){
@@ -80,8 +131,6 @@ public class MainAct extends AppCompatActivity {
                 ArrayList<ModelContract> dataContract = response.body();
 
                 if (dataContract.get(0).getResponse().equals("Success")){
-//                    setData(dataContract);
-                    Log.e("Data", dataContract.get(0).getResponse());
                     setAdapter(dataContract);
                 }
                 else{
@@ -104,40 +153,46 @@ public class MainAct extends AppCompatActivity {
         });
     }
 
-    private void setData(ArrayList<ModelContract> listContract) {
-    }
-
-    private void setAdapter(ArrayList<ModelContract> listContract){
+    private void setAdapter(final ArrayList<ModelContract> listContract){
         adapter = new RecyclerContract(listContract, MainAct.this);
         LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(MainAct.this, LinearLayoutManager.VERTICAL, false);
         rcStep.setLayoutManager(localLinearLayoutManager);
         rcStep.setNestedScrollingEnabled(false);
         rcStep.setAdapter(adapter);
-    }
 
-    private void onClick() {
         ItemClickSupport.addTo(rcStep).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-//                ContractViewerAct.dataContract = listDocs.get(position);
-//                startActivity(new Intent(MainAct.this, ContractViewerAct.class));
+                StepViewerAct.dataContract = listContract.get(position);
+                startActivity(new Intent(MainAct.this, StepViewerAct.class));
             }
         });
+    }
 
-        btnScan.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(MainAct.this, ScanQR.class));
-            }
-        });
+    private void setData(ArrayList<ModelContract> listContract) {
+    }
 
-        btnLogout.setOnClickListener(new View.OnClickListener() {
+    private void alertLogout() {
+        AlertDialog.Builder alert = new AlertDialog.Builder(MainAct.this, R.style.MyProgressDialogTheme);
+
+        alert.setTitle("Logout");
+        alert.setMessage("Are you sure want to Logout?");
+        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
-            public void onClick(View v) {
+            public void onClick(final DialogInterface dialog, int which) {
                 userSave.setKEY_USER(null);
                 startActivity(new Intent(MainAct.this, SplashAct.class));
                 finish();
             }
         });
+        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+
+        alert.show();
     }
 }

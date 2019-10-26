@@ -26,7 +26,6 @@ import androidx.recyclerview.widget.RecyclerView;
 public class RecyclerContract extends RecyclerView.Adapter<RecyclerContract.bidangViewHolder> {
     private ArrayList<ModelContract> dataList;
     private Context context;
-    private ProgressDialog progressDialog = null;
 
     public RecyclerContract(ArrayList<ModelContract> dataList, Context context) {
         this.dataList = dataList;
@@ -45,8 +44,10 @@ public class RecyclerContract extends RecyclerView.Adapter<RecyclerContract.bida
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     public void onBindViewHolder(bidangViewHolder holder, final int position) {
-        holder.textTitle.setText(dataList.get(position).getJudulproyek());
-        holder.textTanggal.setText(dataList.get(position).getTglPermintaanproyek());
+        holder.textNamaProyek.setText(dataList.get(position).getJudulproyek());
+        holder.textNoRak.setText("No. Rak : " + dataList.get(position).getNoRak());
+        holder.textNoKontrak.setText("No. Kontrak : " + dataList.get(position).getNokontrak());
+        holder.textTanggalCreated.setText(dataList.get(position).getTglPermintaanproyek());
     }
 
     @Override
@@ -55,14 +56,15 @@ public class RecyclerContract extends RecyclerView.Adapter<RecyclerContract.bida
     }
 
     public class bidangViewHolder extends RecyclerView.ViewHolder {
-        private TextView textTanggal, textTitle;
-        private RelativeLayout rlDate;
+        private TextView textNamaProyek, textNoRak, textNoKontrak, textTanggalCreated;
 
         public bidangViewHolder(View itemView) {
             super(itemView);
 
-            textTitle = itemView.findViewById(R.id.textTitle);
-            textTanggal = itemView.findViewById(R.id.textTanggal);
+            textNamaProyek = itemView.findViewById(R.id.textNamaProyek);
+            textNoRak = itemView.findViewById(R.id.textNoRak);
+            textNoKontrak = itemView.findViewById(R.id.textNoKontrak);
+            textTanggalCreated = itemView.findViewById(R.id.textTanggalCreated);
         }
     }
 }

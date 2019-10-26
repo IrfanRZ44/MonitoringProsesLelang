@@ -1,11 +1,17 @@
 package com.exomatik.monitoringproseslelang.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.exomatik.monitoringproseslelang.Activity.DocumentViewerAct;
+import com.exomatik.monitoringproseslelang.Activity.StepViewerAct;
 import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
+import com.exomatik.monitoringproseslelang.Featured.ItemClickSupport;
+import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelDocs;
 import com.exomatik.monitoringproseslelang.R;
 
@@ -24,9 +30,12 @@ public class fragStep1 extends Fragment {
     private View view;
     private RecyclerView rcStep;
     private RecyclerContract adapter;
-    private ArrayList<ModelDocs> listDocs = new ArrayList<ModelDocs>();
+    private ArrayList<ModelContract> listDocs = new ArrayList<ModelContract>();
+    private ModelContract dataContract;
+    private TextView textUnstepped;
 
-    public fragStep1() {
+    public fragStep1(ModelContract dataContract) {
+        this.dataContract = dataContract;
     }
 
     @Nullable
@@ -37,26 +46,42 @@ public class fragStep1 extends Fragment {
         init();
         setData();
         setAdapter();
+        onClick();
 
         return view;
     }
 
     private void init() {
         rcStep = view.findViewById(R.id.rcStep);
+        textUnstepped = view.findViewById(R.id.textUnstepped);
     }
 
     private void setData() {
-        listDocs.add(new ModelDocs("Ini Step 1", "22-09-2018"));
-        listDocs.add(new ModelDocs("Ini nama step 3", "15-10-2018"));
-        listDocs.add(new ModelDocs("Ini nama step 5", "08-04-2019"));
+        if (dataContract != null && listDocs.size() == 0) {
+            listDocs.add(dataContract);
+        }
+
+        if (listDocs.size() == 0){
+            textUnstepped.setVisibility(View.VISIBLE);
+        }
     }
 
-    private void setAdapter(){
-//        adapter = new RecyclerContract(listDocs, getContext(), getActivity());
-//        LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
-//        rcStep.setLayoutManager(localLinearLayoutManager);
-//        rcStep.setNestedScrollingEnabled(false);
-//        rcStep.setAdapter(adapter);
+    private void setAdapter() {
+        adapter = new RecyclerContract(listDocs, getContext());
+        LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
+        rcStep.setLayoutManager(localLinearLayoutManager);
+        rcStep.setNestedScrollingEnabled(false);
+        rcStep.setAdapter(adapter);
+    }
+
+    private void onClick() {
+        ItemClickSupport.addTo(rcStep).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
+            @Override
+            public void onItemClicked(RecyclerView recyclerView, int position, View v) {
+                DocumentViewerAct.dataContract = dataContract;
+                startActivity(new Intent(getActivity(), DocumentViewerAct.class));
+            }
+        });
     }
 
 }

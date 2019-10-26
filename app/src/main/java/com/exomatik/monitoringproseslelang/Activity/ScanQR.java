@@ -11,9 +11,15 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
+import com.exomatik.monitoringproseslelang.Featured.UserSave;
+import com.exomatik.monitoringproseslelang.Model.ModelContract;
+import com.exomatik.monitoringproseslelang.R;
+import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
 import com.google.zxing.Result;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 
 import androidx.appcompat.app.AlertDialog;
@@ -21,6 +27,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import me.dm7.barcodescanner.zxing.ZXingScannerView;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 import static android.Manifest.permission.CAMERA;
 
@@ -30,6 +41,8 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     private ProgressDialog progressDialog = null, progressDialog2 = null;
     private ZXingScannerView scannerView;
     private View view;
+    private CustomComponent component;
+    private UserSave userSave;
 
     private void showMessageOKCancel(String paramString, DialogInterface.OnClickListener paramOnClickListener) {
         new AlertDialog.Builder(this).setMessage(paramString).setPositiveButton("OK", paramOnClickListener).create().show();
@@ -41,8 +54,18 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         scannerView = new ZXingScannerView(this);
         setContentView(scannerView);
 
+        init();
+        cekPermissionCamera();
+    }
+
+    private void init() {
         view = findViewById(android.R.id.content);
 
+        userSave = new UserSave(this);
+        component = new CustomComponent(view, ScanQR.this);
+    }
+
+    private void cekPermissionCamera() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkPermission()) {
                 Toast.makeText(getApplicationContext(), "Permission already granted!", Toast.LENGTH_LONG).show();
@@ -111,18 +134,6 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         resumeScanner("Resume");
     }
 
-    @Override
-    public void handleResult(Result paramResult) {
-        progressDialog2 = new ProgressDialog(ScanQR.this);
-        progressDialog2.setMessage("Mohon Tunggu...");
-        progressDialog2.setTitle("Proses");
-        progressDialog2.setCancelable(false);
-        progressDialog2.show();
-
-        Toast.makeText(this, "", Toast.LENGTH_SHORT).show();
-        progressDialog2.dismiss();
-    }
-
     private void resumeScanner(String error) {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkPermission()) {
@@ -141,5 +152,64 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     @Override
     public void onBackPressed() {
         finish();
+    }
+
+    @Override
+    public void handleResult(Result paramResult) {
+        progressDialog2 = new ProgressDialog(ScanQR.this);
+        progressDialog2.setMessage("Mohon Tunggu...");
+        progressDialog2.setTitle("Proses");
+        progressDialog2.setCancelable(false);
+        progressDialog2.show();
+
+        getDataContract(paramResult.getText().toString());
+        progressDialog2.dismiss();
+    }
+
+    private void getDataContract(String result){
+        progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
+        progressDialog.show();
+
+        HashMap<String,String> body = new HashMap<String,String>();
+        body.put("username", userSave.getKEY_USER().getUsername());
+        body.put("level", userSave.getKEY_USER().getLevel());
+        body.put("result", result);
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitApi.jsonProcess)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        Call<ArrayList<ModelContract>> call = api.getResultScanContract(body, "application/json");
+
+        call.enqueue(new Callback<ArrayList<ModelContract>>() {
+            @Override
+            public void onResponse(Call<ArrayList<ModelContract>> call, Response<ArrayList<ModelContract>> response) {
+                ArrayList<ModelContract> dataContract = response.body();
+
+                if (dataContract.get(0).getResponse().equals("Success")){
+                    finish();
+                    StepViewerAct.dataContract = dataContract.get(0);
+                    startActivity(new Intent(ScanQR.this, StepViewerAct.class));
+                }
+                else{
+                    component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                }
+
+                progressDialog.dismiss();
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ModelContract>> call, Throwable t) {
+                progressDialog.dismiss();
+                if (t.getMessage().toString().contains("Unable to resolve host")){
+                    component.makeSnackbar("Mohon periksa koneksi Internet Anda", R.drawable.snakbar_red);
+                }
+                else {
+                    component.makeSnackbar(t.getMessage().toString(), R.drawable.snakbar_red);
+                }
+            }
+        });
     }
 }

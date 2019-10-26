@@ -29,4 +29,8 @@ public interface RetrofitApi {
     @Headers("Accept:application/json")
     @POST("getContract")
     Call<ArrayList<ModelContract>> getContract(@Body Map<String, String> input, @Header("Content-Type") String contentType);
+
+    @Headers("Accept:application/json")
+    @POST("getResultScanContract")
+    Call<ArrayList<ModelContract>> getResultScanContract(@Body Map<String, String> input, @Header("Content-Type") String contentType);
 }
