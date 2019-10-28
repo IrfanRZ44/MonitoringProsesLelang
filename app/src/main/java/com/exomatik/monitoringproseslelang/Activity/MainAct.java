@@ -12,17 +12,24 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
+import com.exomatik.monitoringproseslelang.CustomDialog.DialogProfil;
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.ItemClickSupport;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,10 +45,12 @@ public class MainAct extends AppCompatActivity {
     private View view;
     private RecyclerView rcStep;
     private RecyclerContract adapter;
-    private ImageButton btnScan, btnLogout;
+    private ImageButton btnProfile;
+    private FloatingActionButton btnScan;
     private UserSave userSave;
     private CustomComponent component;
-    private TextView text_nama, text_role, text_email, text_phone;
+    private EditText et_cari;
+    private ArrayList<ModelContract> listContract = new ArrayList<ModelContract>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +58,6 @@ public class MainAct extends AppCompatActivity {
         setContentView(R.layout.act_main);
 
         init();
-        setData();
         getDataContract();
         onClick();
     }
@@ -57,56 +65,63 @@ public class MainAct extends AppCompatActivity {
     private void init() {
         view = findViewById(android.R.id.content);
         rcStep = findViewById(R.id.rcContract);
+        btnProfile = findViewById(R.id.btnProfile);
         btnScan = findViewById(R.id.btnScan);
-        btnLogout = findViewById(R.id.btnLogout);
-        text_nama = findViewById(R.id.text_nama);
-        text_role = findViewById(R.id.text_role);
-        text_email = findViewById(R.id.text_email);
-        text_phone = findViewById(R.id.text_phone);
+        et_cari = findViewById(R.id.et_cari);
 
         userSave = new UserSave(this);
         component = new CustomComponent(view, MainAct.this);
-
-        text_nama.setPaintFlags(text_nama.getPaintFlags() | Paint.UNDERLINE_TEXT_FLAG);
     }
 
     private void onClick() {
+        btnProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DialogProfil dialog = DialogProfil.newInstance();
+                dialog.setCancelable(true);
+                dialog.show(getFragmentManager(), "dialog");
+            }
+        });
+
+        et_cari.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                String text = et_cari.getText().toString();
+
+                if (text.isEmpty()){
+                    setAdapter(listContract);
+                }
+                else {
+                    ArrayList<ModelContract> list = new ArrayList<ModelContract>();
+
+                    for (int a = 0; a < listContract.size(); a++){
+                        if (listContract.get(a).getJudulproyek().contains(text)){
+                            list.add(listContract.get(a));
+                        }
+                    }
+
+                    setAdapter(list);
+                }
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(MainAct.this, ScanQR.class));
             }
         });
-
-        btnLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                alertLogout();
-            }
-        });
-    }
-
-    private void setData() {
-        text_nama.setText(userSave.getKEY_USER().getNama());
-        text_role.setText(userSave.getKEY_USER().getLevel());
-
-        if (userSave.getKEY_USER().getNohp() == null){
-            text_phone.setText("-");
-        }else if (userSave.getKEY_USER().getNohp().equals("")){
-            text_phone.setText("-");
-        }
-        else {
-            text_phone.setText(userSave.getKEY_USER().getNohp());
-        }
-
-        if (userSave.getKEY_USER().getEmail() == null){
-            text_email.setText("-");
-        }else if (userSave.getKEY_USER().getEmail().equals("")){
-            text_email.setText("-");
-        }
-        else {
-            text_email.setText(userSave.getKEY_USER().getEmail());
-        }
     }
 
     private void getDataContract(){
@@ -131,6 +146,7 @@ public class MainAct extends AppCompatActivity {
                 ArrayList<ModelContract> dataContract = response.body();
 
                 if (dataContract.get(0).getResponse().equals("Success")){
+                    listContract = dataContract;
                     setAdapter(dataContract);
                 }
                 else{
@@ -153,8 +169,8 @@ public class MainAct extends AppCompatActivity {
         });
     }
 
-    private void setAdapter(final ArrayList<ModelContract> listContract){
-        adapter = new RecyclerContract(listContract, MainAct.this);
+    private void setAdapter(ArrayList<ModelContract> list){
+        adapter = new RecyclerContract(list, MainAct.this);
         LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(MainAct.this, LinearLayoutManager.VERTICAL, false);
         rcStep.setLayoutManager(localLinearLayoutManager);
         rcStep.setNestedScrollingEnabled(false);
@@ -163,36 +179,13 @@ public class MainAct extends AppCompatActivity {
         ItemClickSupport.addTo(rcStep).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                StepViewerAct.dataContract = listContract.get(position);
-                startActivity(new Intent(MainAct.this, StepViewerAct.class));
+                ActMainStep.dataContract = listContract.get(position);
+                startActivity(new Intent(MainAct.this, ActMainStep.class));
             }
         });
     }
 
     private void setData(ArrayList<ModelContract> listContract) {
-    }
 
-    private void alertLogout() {
-        AlertDialog.Builder alert = new AlertDialog.Builder(MainAct.this, R.style.MyProgressDialogTheme);
-
-        alert.setTitle("Logout");
-        alert.setMessage("Are you sure want to Logout?");
-        alert.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-            @RequiresApi(api = Build.VERSION_CODES.M)
-            @Override
-            public void onClick(final DialogInterface dialog, int which) {
-                userSave.setKEY_USER(null);
-                startActivity(new Intent(MainAct.this, SplashAct.class));
-                finish();
-            }
-        });
-        alert.setNegativeButton("No", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.dismiss();
-            }
-        });
-
-        alert.show();
     }
 }

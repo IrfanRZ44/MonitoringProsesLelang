@@ -8,11 +8,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.exomatik.monitoringproseslelang.Activity.DocumentViewerAct;
-import com.exomatik.monitoringproseslelang.Activity.StepViewerAct;
-import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
+import com.exomatik.monitoringproseslelang.Adapter.RecyclerStepContract;
 import com.exomatik.monitoringproseslelang.Featured.ItemClickSupport;
-import com.exomatik.monitoringproseslelang.Model.ModelContract;
-import com.exomatik.monitoringproseslelang.Model.ModelDocs;
+import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
 
 import java.util.ArrayList;
@@ -29,23 +27,28 @@ import androidx.recyclerview.widget.RecyclerView;
 public class fragStep1 extends Fragment {
     private View view;
     private RecyclerView rcStep;
-    private RecyclerContract adapter;
-    private ArrayList<ModelContract> listDocs = new ArrayList<ModelContract>();
-    private ModelContract dataContract;
+    private RecyclerStepContract adapter;
+    private ArrayList<ModelStepContract> listDocs = new ArrayList<ModelStepContract>();
     private TextView textUnstepped;
 
-    public fragStep1(ModelContract dataContract) {
-        this.dataContract = dataContract;
+    public fragStep1(ArrayList<ModelStepContract> dataContract) {
+        this.listDocs = dataContract;
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.frag_step_1, container, false);
+        view = inflater.inflate(R.layout.frag_step, container, false);
 
         init();
+//        getContract(dat);
         setData();
-        setAdapter();
+        if (listDocs.size() != 0){
+            setAdapter();
+        }
+        else{
+            textUnstepped.setVisibility(View.VISIBLE);
+        }
         onClick();
 
         return view;
@@ -57,17 +60,11 @@ public class fragStep1 extends Fragment {
     }
 
     private void setData() {
-        if (dataContract != null && listDocs.size() == 0) {
-            listDocs.add(dataContract);
-        }
 
-        if (listDocs.size() == 0){
-            textUnstepped.setVisibility(View.VISIBLE);
-        }
     }
 
     private void setAdapter() {
-        adapter = new RecyclerContract(listDocs, getContext());
+        adapter = new RecyclerStepContract(listDocs, getContext());
         LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(getContext(), LinearLayoutManager.VERTICAL, false);
         rcStep.setLayoutManager(localLinearLayoutManager);
         rcStep.setNestedScrollingEnabled(false);
@@ -78,7 +75,7 @@ public class fragStep1 extends Fragment {
         ItemClickSupport.addTo(rcStep).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                DocumentViewerAct.dataContract = dataContract;
+                DocumentViewerAct.dataContract = listDocs.get(position);
                 startActivity(new Intent(getActivity(), DocumentViewerAct.class));
             }
         });

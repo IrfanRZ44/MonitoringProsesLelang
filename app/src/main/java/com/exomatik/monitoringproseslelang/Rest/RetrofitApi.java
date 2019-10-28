@@ -2,6 +2,7 @@ package com.exomatik.monitoringproseslelang.Rest;
 
 
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
+import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.Model.ModelUser;
 
 import java.util.ArrayList;
@@ -33,4 +34,8 @@ public interface RetrofitApi {
     @Headers("Accept:application/json")
     @POST("getResultScanContract")
     Call<ArrayList<ModelContract>> getResultScanContract(@Body Map<String, String> input, @Header("Content-Type") String contentType);
+
+    @Headers("Accept:application/json")
+    @POST("getStepContract")
+    Call<ArrayList<ModelStepContract>> getStepContract(@Body Map<String, String> input, @Header("Content-Type") String contentType);
 }

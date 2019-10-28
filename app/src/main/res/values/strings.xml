@@ -5,6 +5,7 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="username_empty">Username can\'t be empty</string>
     <string name="password_empty">Password can\'t be empty</string>
+
     <string name="imei_empty">Failed to get IMEI</string>
     <string name="mohon_tunggu">Mohon Tunggu</string>
 
@@ -21,4 +22,5 @@
     <string name="text_unstepped">Mohon maaf, contract belum sampai pada tahap ini</string>
     <string name="my_contact_person">My Contact Person</string>
     <string name="halo">Halo,</string>
+    <string name="cari_contract">Cari Contract ?</string>
 </resources>

@@ -58,117 +58,117 @@ public class StepViewerAct extends AppCompatActivity {
             textContractTitle.setText(dataContract.getJudulproyek());
         }
 
-        if (dataContract.getStep().equals("1")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(null);
-            fgDocs3 = new fragStep1(null);
-            fgDocs4 = new fragStep1(null);
-            fgDocs5 = new fragStep1(null);
-            fgDocs6 = new fragStep1(null);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        } else if (dataContract.getStep().equals("2")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(null);
-            fgDocs4 = new fragStep1(null);
-            fgDocs5 = new fragStep1(null);
-            fgDocs6 = new fragStep1(null);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("3")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(null);
-            fgDocs5 = new fragStep1(null);
-            fgDocs6 = new fragStep1(null);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("4")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(null);
-            fgDocs6 = new fragStep1(null);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("5")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(null);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("6")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(dataContract);
-            fgDocs7 = new fragStep1(null);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("7")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(dataContract);
-            fgDocs7 = new fragStep1(dataContract);
-            fgDocs8 = new fragStep1(null);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("8")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(dataContract);
-            fgDocs7 = new fragStep1(dataContract);
-            fgDocs8 = new fragStep1(dataContract);
-            fgDocs9 = new fragStep1(null);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("9")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(dataContract);
-            fgDocs7 = new fragStep1(dataContract);
-            fgDocs8 = new fragStep1(dataContract);
-            fgDocs9 = new fragStep1(dataContract);
-            fgDocs10 = new fragStep1(null);
-        }else if (dataContract.getStep().equals("10")){
-            fgDocs1 = new fragStep1(dataContract);
-            fgDocs2 = new fragStep1(dataContract);
-            fgDocs3 = new fragStep1(dataContract);
-            fgDocs4 = new fragStep1(dataContract);
-            fgDocs5 = new fragStep1(dataContract);
-            fgDocs6 = new fragStep1(dataContract);
-            fgDocs7 = new fragStep1(dataContract);
-            fgDocs8 = new fragStep1(dataContract);
-            fgDocs9 = new fragStep1(dataContract);
-            fgDocs10 = new fragStep1(dataContract);
-        }
+//        if (dataContract.getStep().equals("1")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(null);
+//            fgDocs3 = new fragStep1(null);
+//            fgDocs4 = new fragStep1(null);
+//            fgDocs5 = new fragStep1(null);
+//            fgDocs6 = new fragStep1(null);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        } else if (dataContract.getStep().equals("2")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(null);
+//            fgDocs4 = new fragStep1(null);
+//            fgDocs5 = new fragStep1(null);
+//            fgDocs6 = new fragStep1(null);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("3")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(null);
+//            fgDocs5 = new fragStep1(null);
+//            fgDocs6 = new fragStep1(null);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("4")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(null);
+//            fgDocs6 = new fragStep1(null);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("5")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(null);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("6")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(dataContract);
+//            fgDocs7 = new fragStep1(null);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("7")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(dataContract);
+//            fgDocs7 = new fragStep1(dataContract);
+//            fgDocs8 = new fragStep1(null);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("8")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(dataContract);
+//            fgDocs7 = new fragStep1(dataContract);
+//            fgDocs8 = new fragStep1(dataContract);
+//            fgDocs9 = new fragStep1(null);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("9")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(dataContract);
+//            fgDocs7 = new fragStep1(dataContract);
+//            fgDocs8 = new fragStep1(dataContract);
+//            fgDocs9 = new fragStep1(dataContract);
+//            fgDocs10 = new fragStep1(null);
+//        }else if (dataContract.getStep().equals("10")){
+//            fgDocs1 = new fragStep1(dataContract);
+//            fgDocs2 = new fragStep1(dataContract);
+//            fgDocs3 = new fragStep1(dataContract);
+//            fgDocs4 = new fragStep1(dataContract);
+//            fgDocs5 = new fragStep1(dataContract);
+//            fgDocs6 = new fragStep1(dataContract);
+//            fgDocs7 = new fragStep1(dataContract);
+//            fgDocs8 = new fragStep1(dataContract);
+//            fgDocs9 = new fragStep1(dataContract);
+//            fgDocs10 = new fragStep1(dataContract);
+//        }
     }
 
     private void onClick(){
@@ -207,6 +207,5 @@ public class StepViewerAct extends AppCompatActivity {
         tabKategori.getTabAt(7).setText(getResources().getString(R.string.step_8));
         tabKategori.getTabAt(8).setText(getResources().getString(R.string.step_9));
         tabKategori.getTabAt(9).setText(getResources().getString(R.string.step_10));
-
     }
 }

@@ -173,14 +173,73 @@ class Json_process extends CI_Controller {
 		}
 		mysqli_close($con);
 	}
+	
+	function getResultScanContract(){
+		$content = trim(file_get_contents("php://input"));
+		$decoded = json_decode($content);
+		$username = $decoded->username;
+		$level = $decoded->level;
+		$result = $decoded->result;
 
+		if (isset($username) && isset($level) && ($level != "") && isset($result)) {
+			$kon = mysqli_connect($this->host, $this->user, $this->password, $this->namaDb);
+			$data_user = array();
+			if ($level == "admin") {
+				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
+			}else if ($level == "officer") {
+				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
+			}else if ($level == "pic") {
+				$result = mysqli_query($kon, "SELECT * FROM `proyek` WHERE `id_proyek` = '$result'");
+
+				if ($result) {
+					$data_result = array();
+
+					while ($row = mysqli_fetch_array($result)) {
+						$row_array['id_proyek'] = $row['id_proyek'];
+						$row_array['judulproyek'] = $row['judulproyek'];
+						$row_array['nokontrak'] = $row['nokontrak'];
+						$row_array['no_rak'] = $row['no_rak'];
+						$row_array['lokasikerja'] = $row['lokasikerja'];
+						$row_array['datetime'] = $row['datetime'];
+						$row_array['step'] = $row['step'];
+						$row_array['sub_step']  = $row['sub_step'];
+						$row_array['komentar'] = $row['komentar'];
+						$row_array['tgl_permintaanproyek'] = $row['tgl_permintaanproyek'];
+						$row_array['tgl_prakualifikasi'] = $row['tgl_prakualifikasi'];
+						$row_array['tgl_aanwizijing'] = $row['tgl_aanwizijing'];
+						$row_array['tgl_pembukaansampul1'] = $row['tgl_pembukaansampul1'];
+						$row_array['tgl_negosiasi'] = $row['tgl_negosiasi'];
+						$row_array['tgl_penetapanpemenang'] = $row['tgl_penetapanpemenang'];
+						$row_array['tgl_penunjukanpemenang'] = $row['tgl_penunjukanpemenang'];
+						$row_array['response'] = "Success";
+
+						array_push($data_result,$row_array);
+					}
+					
+					echo json_encode($data_result);
+				}else{
+					echo json_encode("Failed result");
+				}
+			}else if ($level == "user") {
+				echo json_encode("This User");
+			}else{
+				echo json_encode("User Level doesn't Available");
+			}
+		} else {
+			$row_array['response'] = "Failed to send data";
+			// array_push($data_user,$row_array);
+			echo json_encode("Failed");
+		}
+		mysqli_close($con);
+	}
+	
 	function cekImei(){
 		$content = trim(file_get_contents("php://input"));
 		$decoded = json_decode($content);
 		$username = $decoded->username;
 		$imei = $decoded->imei;
 
-		if (isset($username) && isset($level) && ($level != "")) {
+		if (isset($username) && isset($imei) && ($imei != "")) {
 			$kon = mysqli_connect($this->host, $this->user, $this->password, $this->namaDb);
 			
 			
@@ -198,6 +257,42 @@ class Json_process extends CI_Controller {
 						echo json_encode(array("response" => "Unmathced"));
 					}
 				}
+			} else {
+				$row_array['response'] = "Failed to send data";
+				echo json_encode("Failed");
+			}
+			mysqli_close($con);
+		}
+	}
+
+	function getStepContract(){
+		$content = trim(file_get_contents("php://input"));
+		$decoded = json_decode($content);
+		$id_proyek = $decoded->id_proyek;
+		$step = $decoded->step;
+
+		if (isset($id_proyek) && isset($step) && ($step != "")) {
+			$kon = mysqli_connect($this->host, $this->user, $this->password, $this->namaDb);
+			
+			$result = mysqli_query($kon, "SELECT * FROM `files` WHERE `id_proyek` = '$id_proyek'");
+			
+
+			if ($result) {
+				$data_result = array();
+
+				while ($row = mysqli_fetch_array($result)) {
+					$row_array['id_files'] = $row['id_files'];
+					$row_array['nama_file'] = $row['nama_file'];
+					$row_array['url'] = $row['url'];
+					$row_array['id_proyek'] = $row['id_proyek'];
+					$row_array['id_dokumen'] = $row['id_dokumen'];
+					$row_array['datetime_create'] = $row['datetime_create'];
+					$row_array['response'] = "Success";
+					
+					array_push($data_result,$row_array);
+				}
+
+				echo json_encode($data_result);
 			} else {
 				$row_array['response'] = "Failed to send data";
 				echo json_encode("Failed");

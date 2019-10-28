@@ -1,24 +1,39 @@
 package com.exomatik.monitoringproseslelang.Activity;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.Manifest;
 import android.app.ProgressDialog;
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.Toast;
 
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
+import com.exomatik.monitoringproseslelang.Featured.FileDownloader;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
+import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.io.File;
+import java.io.IOException;
 
 public class DocumentViewerAct extends AppCompatActivity {
-    public static ModelContract dataContract;
+    public static ModelStepContract dataContract;
     private WebView webViewDocs;
     private SwipeRefreshLayout swipeRefresh;
     private boolean jalan = true;
@@ -26,6 +41,7 @@ public class DocumentViewerAct extends AppCompatActivity {
     private CustomComponent component;
     private View view;
     private String baseUrl = "http://dolby.mor7.com/";
+    private FloatingActionButton btnDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +56,7 @@ public class DocumentViewerAct extends AppCompatActivity {
     private void init() {
         webViewDocs = findViewById(R.id.webViewDocs);
         swipeRefresh = findViewById(R.id.swipeRefresh);
+        btnDownload = findViewById(R.id.btnDownload);
         view = findViewById(android.R.id.content);
 
         component = new CustomComponent(view, DocumentViewerAct.this);
@@ -66,6 +83,13 @@ public class DocumentViewerAct extends AppCompatActivity {
                 }, 2000L);
             }
         });
+
+        btnDownload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                checkPermission();
+            }
+        });
     }
 
     @Override
@@ -78,7 +102,7 @@ public class DocumentViewerAct extends AppCompatActivity {
         webViewDocs.getSettings().setJavaScriptEnabled(true);
 
         String content = "";
-        content = baseUrl + "export/" + dataContract.getIdProyek() + ".pdf";
+        content = baseUrl + "assets/files/" + dataContract.getUrl();
         content = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + content;
         Log.e("Url doc", content);
 
@@ -92,5 +116,60 @@ public class DocumentViewerAct extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void checkPermission(){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED) {
+                new DownloadFile().execute(baseUrl + "assets/files/" + dataContract.getUrl(), dataContract.getNamaFile());
+            } else {
+                Log.v("Permission","Permission is revoked");
+                ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
+            }
+        }
+        else {
+            new DownloadFile().execute(baseUrl + "assets/files/" + dataContract.getUrl(), dataContract.getNamaFile());
+        }
+    }
+
+    private class DownloadFile extends AsyncTask<String, Void, Void> {
+
+        @Override
+        protected Void doInBackground(String... strings) {
+            String fileUrl = strings[0];   // -> http://maven.apache.org/maven-1.x/maven.pdf
+            String fileName = strings[1];  // -> maven.pdf
+            String extStorageDirectory = Environment.getExternalStorageDirectory().toString();
+            File folder = new File(extStorageDirectory, "Download");
+            folder.mkdir();
+
+            File pdfFile = new File(folder, fileName + ".pdf");
+
+            try{
+                pdfFile.createNewFile();
+            }catch (IOException e){
+                e.printStackTrace();
+            }
+            FileDownloader.downloadFile(fileUrl, pdfFile);
+            return null;
+        }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+                    + File.separator + "Download" + File.separator);
+//            Uri uri = Uri.parse(Environment.getExternalStorageDirectory().getPath()
+//                    + File.separator + "Download" + File.separator + dataContract.getNamaFile() + ".pdf");
+//            intent.setDataAndType(uri, "application/pdf");
+
+            intent.setDataAndType(uri, "*/*");
+
+            try{
+                startActivity(Intent.createChooser(intent, "Open file"));
+            }catch(ActivityNotFoundException e){
+                Toast.makeText(DocumentViewerAct.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 }

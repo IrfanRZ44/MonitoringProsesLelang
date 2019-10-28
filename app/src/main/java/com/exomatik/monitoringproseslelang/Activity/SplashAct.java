@@ -44,5 +44,6 @@ public class SplashAct extends AppCompatActivity {
                 finish();
             }
         }, 2000L);
+
     }
 }

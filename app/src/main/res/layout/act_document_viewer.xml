@@ -18,4 +18,18 @@
             />
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_cloud_download_black_24dp"
+        android:background="@drawable/border_circle_blue_gray"
+        android:id="@+id/btnDownload"
+        android:layout_marginTop="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        app:fabSize="normal"
+        app:maxImageSize="@dimen/width40"
+        />
 </RelativeLayout>

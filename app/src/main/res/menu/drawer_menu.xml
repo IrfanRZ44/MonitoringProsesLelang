@@ -7,24 +7,89 @@
         android:visible="true"
         >
         <item
-            n1:id="@+id/nav_step"
+            n1:id="@+id/nav_step1"
             n1:icon="@drawable/ic_step_white"
-            n1:title="Step" />
+            n1:title="@string/step_1" />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/nav_grup2"
-        android:visible="true">
+        android:visible="true"
+        >
         <item
-            n1:id="@+id/nav_docs"
-            android:icon="@drawable/ic_docs_white"
-            n1:title="Dokumen" />
+            n1:id="@+id/nav_step2"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_2" />
     </group>
     <group android:checkableBehavior="single"
         android:id="@+id/nav_grup3"
-        android:visible="true">
+        android:visible="true"
+        >
         <item
-            n1:id="@+id/nav_memo"
-            android:icon="@drawable/ic_memo_white"
-            n1:title="Memo" />
+            n1:id="@+id/nav_step3"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_3" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup4"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step4"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_4" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup5"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step5"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_5" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup6"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step6"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_6" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup7"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step7"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_7" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup8"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step8"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_8" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup9"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step9"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_9" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup10"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step10"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_10" />
     </group>
 </menu>
