@@ -76,7 +76,6 @@ public class LoginAct extends AppCompatActivity {
                     }
                 }
                 else{
-                    Log.e("IMEI", imei);
                     progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
                     progressDialog.show();
                     HashMap<String,String> body = new HashMap<String,String>();
@@ -84,6 +83,7 @@ public class LoginAct extends AppCompatActivity {
                     body.put("imei", imei);
                     body.put("username", username);
 
+                    Log.e("IMEI", body.toString());
                     postLoginUser(body);
                 }
             }

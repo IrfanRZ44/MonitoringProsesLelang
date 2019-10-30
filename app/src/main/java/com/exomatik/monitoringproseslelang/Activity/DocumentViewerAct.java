@@ -33,6 +33,7 @@ import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.CustomWebChromeClient;
 import com.exomatik.monitoringproseslelang.Featured.FileDownloader;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
+import com.exomatik.monitoringproseslelang.Model.ModelCekImei;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
@@ -41,6 +42,13 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 public class DocumentViewerAct extends AppCompatActivity {
     public static ModelStepContract dataContract;
@@ -166,7 +174,6 @@ public class DocumentViewerAct extends AppCompatActivity {
                 }
 
                 if (view.getContentHeight() == 0){
-                    component.makeSnackbar("Gagal mengakses dokumen", R.drawable.snakbar_red);
                     swipeRefresh.setRefreshing(true);
                     jalan = true;
                     setWebView();
@@ -228,5 +235,45 @@ public class DocumentViewerAct extends AppCompatActivity {
                 component.makeSnackbar("No Application available to view PDF", R.drawable.snakbar_red);
             }
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cekImei();
+    }
+
+    private void cekImei() {
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("username", userSave.getKEY_USER().getUsername());
+        body.put("imei", userSave.getKEY_USER().getImei());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitApi.jsonProcess)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        Call<ModelCekImei> call = api.cekImei(body, "application/json");
+
+        call.enqueue(new Callback<ModelCekImei>() {
+            @Override
+            public void onResponse(Call<ModelCekImei> call, Response<ModelCekImei> response) {
+                ModelCekImei dataContract = response.body();
+
+                if (dataContract.getResponse().equals("Match")) {
+
+                } else {
+                    Intent homeIntent = new Intent(DocumentViewerAct.this, SplashAct.class);
+                    startActivity(homeIntent);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelCekImei> call, Throwable t) {
+            }
+        });
     }
 }

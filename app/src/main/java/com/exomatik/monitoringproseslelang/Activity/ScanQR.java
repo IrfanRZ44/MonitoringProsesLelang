@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
+import com.exomatik.monitoringproseslelang.Model.ModelCekImei;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
@@ -129,6 +130,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
     public void onResume() {
         super.onResume();
         resumeScanner("Resume");
+        cekImei();
     }
 
     private void resumeScanner(String error) {
@@ -208,6 +210,40 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
                 else {
                     component.makeSnackbar(t.getMessage().toString(), R.drawable.snakbar_red);
                 }
+            }
+        });
+    }
+
+    private void cekImei() {
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("username", userSave.getKEY_USER().getUsername());
+        body.put("imei", userSave.getKEY_USER().getImei());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitApi.jsonProcess)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        Call<ModelCekImei> call = api.cekImei(body, "application/json");
+
+        call.enqueue(new Callback<ModelCekImei>() {
+            @Override
+            public void onResponse(Call<ModelCekImei> call, Response<ModelCekImei> response) {
+                ModelCekImei dataContract = response.body();
+
+                if (dataContract.getResponse().equals("Match")) {
+
+                } else {
+                    Intent homeIntent = new Intent(ScanQR.this, SplashAct.class);
+                    startActivity(homeIntent);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelCekImei> call, Throwable t) {
             }
         });
     }

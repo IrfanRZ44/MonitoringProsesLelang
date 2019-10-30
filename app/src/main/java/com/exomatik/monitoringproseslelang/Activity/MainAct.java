@@ -8,6 +8,7 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.exomatik.monitoringproseslelang.CustomDialog.DialogProfil;
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.ItemClickSupport;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
+import com.exomatik.monitoringproseslelang.Model.ModelCekImei;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
@@ -89,14 +91,13 @@ public class MainAct extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 String text = et_cari.getText().toString();
 
-                if (text.isEmpty()){
+                if (text.isEmpty()) {
                     setAdapter(listContract);
-                }
-                else {
+                } else {
                     ArrayList<ModelContract> list = new ArrayList<ModelContract>();
 
-                    for (int a = 0; a < listContract.size(); a++){
-                        if (listContract.get(a).getJudulproyek().contains(text)){
+                    for (int a = 0; a < listContract.size(); a++) {
+                        if (listContract.get(a).getJudulproyek().contains(text)) {
                             list.add(listContract.get(a));
                         }
                     }
@@ -128,11 +129,11 @@ public class MainAct extends AppCompatActivity {
         });
     }
 
-    private void getDataContract(){
+    private void getDataContract() {
         progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
         progressDialog.show();
 
-        HashMap<String,String> body = new HashMap<String,String>();
+        HashMap<String, String> body = new HashMap<String, String>();
         body.put("username", userSave.getKEY_USER().getUsername());
         body.put("level", userSave.getKEY_USER().getLevel());
 
@@ -149,15 +150,15 @@ public class MainAct extends AppCompatActivity {
             public void onResponse(Call<ArrayList<ModelContract>> call, Response<ArrayList<ModelContract>> response) {
                 ArrayList<ModelContract> dataContract = response.body();
 
-                if (dataContract.get(0).getResponse().equals("Success")){
+                if (dataContract.get(0).getResponse().equals("Success")) {
                     listContract = dataContract;
                     setAdapter(dataContract);
-                } else{
+                } else {
                     component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
                 }
 
                 progressDialog.dismiss();
-                if (swipeRefresh.isRefreshing()){
+                if (swipeRefresh.isRefreshing()) {
                     swipeRefresh.setRefreshing(false);
                 }
             }
@@ -165,20 +166,19 @@ public class MainAct extends AppCompatActivity {
             @Override
             public void onFailure(Call<ArrayList<ModelContract>> call, Throwable t) {
                 progressDialog.dismiss();
-                if (swipeRefresh.isRefreshing()){
+                if (swipeRefresh.isRefreshing()) {
                     swipeRefresh.setRefreshing(false);
                 }
-                if (t.getMessage().toString().contains("Unable to resolve host")){
+                if (t.getMessage().toString().contains("Unable to resolve host")) {
                     component.makeSnackbar("Mohon periksa koneksi Internet Anda", R.drawable.snakbar_red);
-                }
-                else {
+                } else {
                     component.makeSnackbar(t.getMessage().toString(), R.drawable.snakbar_red);
                 }
             }
         });
     }
 
-    private void setAdapter(ArrayList<ModelContract> list){
+    private void setAdapter(ArrayList<ModelContract> list) {
         adapter = new RecyclerContract(list, MainAct.this);
         LinearLayoutManager localLinearLayoutManager = new LinearLayoutManager(MainAct.this, LinearLayoutManager.VERTICAL, false);
         rcStep.setLayoutManager(localLinearLayoutManager);
@@ -190,6 +190,46 @@ public class MainAct extends AppCompatActivity {
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
                 MainStepAct.dataContract = listContract.get(position);
                 startActivity(new Intent(MainAct.this, MainStepAct.class));
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        cekImei();
+    }
+
+    private void cekImei() {
+        HashMap<String, String> body = new HashMap<String, String>();
+        body.put("username", userSave.getKEY_USER().getUsername());
+        body.put("imei", userSave.getKEY_USER().getImei());
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(RetrofitApi.jsonProcess)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+        RetrofitApi api = retrofit.create(RetrofitApi.class);
+
+        Call<ModelCekImei> call = api.cekImei(body, "application/json");
+
+        call.enqueue(new Callback<ModelCekImei>() {
+            @Override
+            public void onResponse(Call<ModelCekImei> call, Response<ModelCekImei> response) {
+                ModelCekImei dataContract = response.body();
+
+                if (dataContract.getResponse().equals("Match")) {
+
+                } else {
+                    Intent homeIntent = new Intent(MainAct.this, SplashAct.class);
+                    startActivity(homeIntent);
+                    finish();
+                }
+
+            }
+
+            @Override
+            public void onFailure(Call<ModelCekImei> call, Throwable t) {
             }
         });
     }
