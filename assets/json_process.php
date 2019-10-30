@@ -125,11 +125,7 @@ class Json_process extends CI_Controller {
 		if (isset($username) && isset($level) && ($level != "")) {
 			$kon = mysqli_connect($this->host, $this->user, $this->password, $this->namaDb);
 			$data_user = array();
-			if ($level == "admin") {
-				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
-			}else if ($level == "officer") {
-				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
-			}else if ($level == "pic") {
+			if ($level == "pic" || $level == "admin") {
 				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
 
 				if ($result) {
@@ -159,17 +155,75 @@ class Json_process extends CI_Controller {
 					
 					echo json_encode($data_result);
 				}else{
-					echo json_encode("Failed result");
+					$row_array['id_proyek'] = "";
+					$row_array['judulproyek'] = "";
+					$row_array['nokontrak'] = "";
+					$row_array['no_rak'] = "";
+					$row_array['lokasikerja'] = "";
+					$row_array['datetime'] = "";
+					$row_array['step'] = "";
+					$row_array['sub_step']  = "";
+					$row_array['komentar'] = "";
+					$row_array['tgl_permintaanproyek'] = "";
+					$row_array['tgl_prakualifikasi'] = "";
+					$row_array['tgl_aanwizijing'] = "";
+					$row_array['tgl_pembukaansampul1'] = "";
+					$row_array['tgl_negosiasi'] = "";
+					$row_array['tgl_penetapanpemenang'] = "";
+					$row_array['tgl_penunjukanpemenang'] = "";
+					$row_array['response'] = "Failed getting result";
+
+					array_push($data_user,$row_array);
+					echo json_encode($data_user);
 				}
+			}
+			else if ($level == "officer") {
+				$result = mysqli_query($kon, "SELECT * FROM `proyek`");
 			}else if ($level == "user") {
 				echo json_encode("This User");
 			}else{
-				echo json_encode("User Level doesn't Available");
+				$row_array['id_proyek'] = "";
+				$row_array['judulproyek'] = "";
+				$row_array['nokontrak'] = "";
+				$row_array['no_rak'] = "";
+				$row_array['lokasikerja'] = "";
+				$row_array['datetime'] = "";
+				$row_array['step'] = "";
+				$row_array['sub_step']  = "";
+				$row_array['komentar'] = "";
+				$row_array['tgl_permintaanproyek'] = "";
+				$row_array['tgl_prakualifikasi'] = "";
+				$row_array['tgl_aanwizijing'] = "";
+				$row_array['tgl_pembukaansampul1'] = "";
+				$row_array['tgl_negosiasi'] = "";
+				$row_array['tgl_penetapanpemenang'] = "";
+				$row_array['tgl_penunjukanpemenang'] = "";
+				$row_array['response'] = "User Level doesn't Available";
+
+				array_push($data_user,$row_array);
+				echo json_encode($data_user);
 			}
 		} else {
+			$row_array['id_proyek'] = "";
+			$row_array['judulproyek'] = "";
+			$row_array['nokontrak'] = "";
+			$row_array['no_rak'] = "";
+			$row_array['lokasikerja'] = "";
+			$row_array['datetime'] = "";
+			$row_array['step'] = "";
+			$row_array['sub_step']  = "";
+			$row_array['komentar'] = "";
+			$row_array['tgl_permintaanproyek'] = "";
+			$row_array['tgl_prakualifikasi'] = "";
+			$row_array['tgl_aanwizijing'] = "";
+			$row_array['tgl_pembukaansampul1'] = "";
+			$row_array['tgl_negosiasi'] = "";
+			$row_array['tgl_penetapanpemenang'] = "";
+			$row_array['tgl_penunjukanpemenang'] = "";
 			$row_array['response'] = "Failed to send data";
-			// array_push($data_user,$row_array);
-			echo json_encode("Failed");
+
+			array_push($data_user,$row_array);
+			echo json_encode($data_user);
 		}
 		mysqli_close($con);
 	}
@@ -264,14 +318,13 @@ class Json_process extends CI_Controller {
 			mysqli_close($con);
 		}
 	}
-
+	
 	function getStepContract(){
 		$content = trim(file_get_contents("php://input"));
 		$decoded = json_decode($content);
 		$id_proyek = $decoded->id_proyek;
-		$step = $decoded->step;
 
-		if (isset($id_proyek) && isset($step) && ($step != "")) {
+		if (isset($id_proyek)) {
 			$kon = mysqli_connect($this->host, $this->user, $this->password, $this->namaDb);
 			
 			$result = mysqli_query($kon, "SELECT * FROM `files` WHERE `id_proyek` = '$id_proyek'");
@@ -279,7 +332,7 @@ class Json_process extends CI_Controller {
 
 			if ($result) {
 				$data_result = array();
-
+				
 				while ($row = mysqli_fetch_array($result)) {
 					$row_array['id_files'] = $row['id_files'];
 					$row_array['nama_file'] = $row['nama_file'];
@@ -288,10 +341,10 @@ class Json_process extends CI_Controller {
 					$row_array['id_dokumen'] = $row['id_dokumen'];
 					$row_array['datetime_create'] = $row['datetime_create'];
 					$row_array['response'] = "Success";
-					
+
 					array_push($data_result,$row_array);
 				}
-
+				
 				echo json_encode($data_result);
 			} else {
 				$row_array['response'] = "Failed to send data";

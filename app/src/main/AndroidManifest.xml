@@ -24,8 +24,7 @@
         android:theme="@style/Theme.CustomBlue.NoActionBar"
         android:usesCleartextTraffic="true">
         <activity android:name=".Activity.DocumentViewerAct"></activity>
-        <activity android:name=".Activity.ActMainStep"></activity>
-        <activity android:name=".Activity.StepViewerAct" />
+        <activity android:name=".Activity.MainStepAct"></activity>
         <activity android:name=".Activity.MainAct" />
         <activity android:name=".Activity.LoginAct" />
         <activity android:name=".Activity.ScanQR" />

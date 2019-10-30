@@ -1,17 +1,12 @@
 package com.exomatik.monitoringproseslelang.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.PopupMenu;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,13 +14,14 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
+import com.exomatik.monitoringproseslelang.Featured.UserSave;
 import com.exomatik.monitoringproseslelang.Fragment.fragStep1;
+import com.exomatik.monitoringproseslelang.Fragment.fragStepMemo;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
 import com.exomatik.monitoringproseslelang.Rest.RetrofitApi;
 import com.google.android.material.navigation.NavigationView;
-import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,14 +33,16 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class ActMainStep extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+public class MainStepAct extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     public static ModelContract dataContract;
     private ProgressDialog progressDialog;
     private CircleImageView imgUser;
     private TextView namaUser;
     private View view;
-    private fragStep1 fgDocs1, fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10;
+    private fragStep1 fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10;
+    private fragStepMemo fgDocs1;
     private CustomComponent component;
+    private UserSave userSave;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +56,9 @@ public class ActMainStep extends AppCompatActivity implements NavigationView.OnN
 
     private void init() {
         view = (View) findViewById(android.R.id.content);
-        component = new CustomComponent(view, ActMainStep.this);
+
+        userSave = new UserSave(this);
+        component = new CustomComponent(view, MainStepAct.this);
 
         progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
 
@@ -92,31 +92,31 @@ public class ActMainStep extends AppCompatActivity implements NavigationView.OnN
         ArrayList<ModelStepContract> dataStep9 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep10 = new ArrayList<ModelStepContract>();
 
-        for (int a = 0; a < dataStep.size(); a++){
-            if (dataStep.get(a).getIdDokumen().equals("1")){
-                dataStep1.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("2")){
-                dataStep2.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("3")){
-                dataStep3.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("4")){
-                dataStep4.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("5")){
-                dataStep5.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("6")){
-                dataStep6.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("7")){
-                dataStep7.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("8")){
-                dataStep8.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("9")){
-                dataStep9.add(dataStep.get(a));
-            } else if (dataStep.get(a).getIdDokumen().equals("10")){
-                dataStep10.add(dataStep.get(a));
+        if (dataStep != null){
+            for (int a = 0; a < dataStep.size(); a++){
+                if (dataStep.get(a).getIdDokumen().equals("1")){
+                    dataStep2.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("2")){
+                    dataStep3.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("3")){
+                    dataStep4.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("4")){
+                    dataStep5.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("5")){
+                    dataStep6.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("6")){
+                    dataStep7.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("7")){
+                    dataStep8.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("8")){
+                    dataStep9.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("9")){
+                    dataStep10.add(dataStep.get(a));
+                }
             }
         }
 
-        fgDocs1 = new fragStep1(dataStep1);
+        fgDocs1 = new fragStepMemo(dataContract);
         fgDocs2 = new fragStep1(dataStep2);
         fgDocs3 = new fragStep1(dataStep3);
         fgDocs4 = new fragStep1(dataStep4);
@@ -201,6 +201,10 @@ public class ActMainStep extends AppCompatActivity implements NavigationView.OnN
 
         HashMap<String, String> body = new HashMap<String, String>();
         body.put("id_proyek", dataContract.getIdProyek());
+        body.put("userRole", userSave.getKEY_USER().getLevel());
+        body.put("userName", userSave.getKEY_USER().getUsername());
+
+        Log.e("Body", body.toString());
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitApi.jsonProcess)
@@ -215,13 +219,19 @@ public class ActMainStep extends AppCompatActivity implements NavigationView.OnN
             public void onResponse(Call<ArrayList<ModelStepContract>> call, Response<ArrayList<ModelStepContract>> response) {
                 ArrayList<ModelStepContract> dataContract = response.body();
 
-                if (dataContract.get(0).getResponse().equals("Success")) {
-                    setData(dataContract);
-                } else {
-                    component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                if (dataContract.size() != 0){
+                    if (dataContract.get(0).getResponse().equals("Success")) {
+                        setData(dataContract);
+                    } else {
+                        setData(null);
+                        component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                    }
+                }
+                else {
+                    setData(null);
+                    component.makeSnackbar("Belum ada dokumen contract yang di upload", R.drawable.snakbar_red);
                 }
 
-                Log.e("Jalan", Integer.toString(dataContract.size()));
                 progressDialog.dismiss();
             }
 
@@ -231,8 +241,10 @@ public class ActMainStep extends AppCompatActivity implements NavigationView.OnN
                 if (t.getMessage().toString().contains("Unable to resolve host")) {
                     component.makeSnackbar("Mohon periksa koneksi Internet Anda", R.drawable.snakbar_red);
                 } else {
+                    Log.e("Errr", t.getMessage().toString());
                     component.makeSnackbar(t.getMessage().toString(), R.drawable.snakbar_red);
                 }
+                setData(null);
             }
         });
     }

@@ -9,7 +9,9 @@ import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.net.http.SslError;
 import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +19,20 @@ import android.os.Environment;
 import android.os.Handler;
 import android.util.Log;
 import android.view.View;
+import android.webkit.ClientCertRequest;
+import android.webkit.SslErrorHandler;
+import android.webkit.WebResourceError;
+import android.webkit.WebResourceRequest;
+import android.webkit.WebResourceResponse;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
+import com.exomatik.monitoringproseslelang.Featured.CustomWebChromeClient;
 import com.exomatik.monitoringproseslelang.Featured.FileDownloader;
+import com.exomatik.monitoringproseslelang.Featured.UserSave;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
@@ -42,6 +52,8 @@ public class DocumentViewerAct extends AppCompatActivity {
     private View view;
     private String baseUrl = "http://dolby.mor7.com/";
     private FloatingActionButton btnDownload;
+    private UserSave userSave;
+    private RelativeLayout rlDownload;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,13 +69,21 @@ public class DocumentViewerAct extends AppCompatActivity {
         webViewDocs = findViewById(R.id.webViewDocs);
         swipeRefresh = findViewById(R.id.swipeRefresh);
         btnDownload = findViewById(R.id.btnDownload);
+        rlDownload = findViewById(R.id.rlDownload);
         view = findViewById(android.R.id.content);
 
+        userSave = new UserSave(this);
         component = new CustomComponent(view, DocumentViewerAct.this);
 
         progressDialog = component.makeProgress(getResources().getString(R.string.mohon_tunggu));
         progressDialog.show();
         swipeRefresh.setEnabled(false);
+
+        if (userSave.getKEY_USER().getLevel().equals("user")){
+            rlDownload.setVisibility(View.GONE);
+        }
+
+
     }
 
     @Override
@@ -99,20 +119,57 @@ public class DocumentViewerAct extends AppCompatActivity {
     }
 
     private void setWebView() {
+        webViewDocs.clearCache(true);
+        webViewDocs.clearHistory();
+        webViewDocs.clearMatches();
+        webViewDocs.clearSslPreferences();
+        webViewDocs.clearView();
+//        webViewDocs.clearFormData();
+
+        webViewDocs.setWebChromeClient(new CustomWebChromeClient(this));
+        webViewDocs.setWebViewClient(new WebViewClient());
+        webViewDocs.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+        webViewDocs.getSettings().setDomStorageEnabled(true);
+        webViewDocs.getSettings().setBuiltInZoomControls(true);
         webViewDocs.getSettings().setJavaScriptEnabled(true);
+        webViewDocs.getSettings().setSupportZoom(false);
+        webViewDocs.getSettings().setBuiltInZoomControls(false);
+        webViewDocs.getSettings().setDisplayZoomControls(false);
+        webViewDocs.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
         String content = "";
         content = baseUrl + "assets/files/" + dataContract.getUrl();
-        content = "https://drive.google.com/viewerng/viewer?embedded=true&url=" + content;
-        Log.e("Url doc", content);
+        content = "https://drive.google.com/viewerng/viewer?embedded=true&samesite=none&promo_shown=1&url=" + content + "";
+        Log.e("Url doc", content + "  asdasd");
 
         webViewDocs.loadUrl(content);
+
         webViewDocs.setWebViewClient(new WebViewClient() {
+            @Override
+            public void onReceivedError(WebView view, WebResourceRequest request, WebResourceError error) {
+                super.onReceivedError(view, request, error);
+                component.makeSnackbar("Gagal membuka dokumen", R.drawable.snakbar_red);
+            }
+
+            @Override
+            public void onPageStarted(WebView view, String url, Bitmap favicon) {
+                super.onPageStarted(view, url, favicon);
+            }
+
             public void onPageFinished(WebView view, String weburl) {
+
                 if (jalan) {
                     swipeRefresh.setEnabled(true);
+                    swipeRefresh.setRefreshing(false);
                     progressDialog.dismiss();
                     jalan = false;
+                }
+
+                if (view.getContentHeight() == 0){
+                    component.makeSnackbar("Gagal mengakses dokumen", R.drawable.snakbar_red);
+                    swipeRefresh.setRefreshing(true);
+                    jalan = true;
+                    setWebView();
                 }
             }
         });
@@ -166,9 +223,9 @@ public class DocumentViewerAct extends AppCompatActivity {
             intent.setDataAndType(uri, "*/*");
 
             try{
-                startActivity(Intent.createChooser(intent, "Open file"));
+                startActivity(Intent.createChooser(intent, "Open folder"));
             }catch(ActivityNotFoundException e){
-                Toast.makeText(DocumentViewerAct.this, "No Application available to view PDF", Toast.LENGTH_SHORT).show();
+                component.makeSnackbar("No Application available to view PDF", R.drawable.snakbar_red);
             }
         }
     }

@@ -19,8 +19,10 @@
     <string name="step_8">Penetapan Pemenang</string>
     <string name="step_9">Penunjukan Pemenang</string>
     <string name="step_10">Selesai</string>
-    <string name="text_unstepped">Mohon maaf, contract belum sampai pada tahap ini</string>
+    <string name="step_0">Belum di mulai</string>
+    <string name="text_unstepped">Mohon maaf, dokumen contract tidak tersedia atau contract belum sampai pada tahap ini</string>
     <string name="my_contact_person">My Contact Person</string>
     <string name="halo">Halo,</string>
     <string name="cari_contract">Cari Contract ?</string>
+    <string name="informasi_contract">Informasi Contract</string>
 </resources>

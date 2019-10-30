@@ -74,6 +74,8 @@ public class RecyclerContract extends RecyclerView.Adapter<RecyclerContract.bida
             step = context.getResources().getString(R.string.step_9);
         }else if (step.equals("10")){
             step = context.getResources().getString(R.string.step_10);
+        } else {
+            step = context.getResources().getString(R.string.step_0);
         }
         return step;
     }

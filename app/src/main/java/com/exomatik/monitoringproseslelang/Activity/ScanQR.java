@@ -1,13 +1,11 @@
 package com.exomatik.monitoringproseslelang.Activity;
 
 import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -20,7 +18,6 @@ import com.google.zxing.Result;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -173,7 +170,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         HashMap<String,String> body = new HashMap<String,String>();
         body.put("username", userSave.getKEY_USER().getUsername());
         body.put("level", userSave.getKEY_USER().getLevel());
-        body.put("result", result);
+        body.put("idContract", result);
 
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitApi.jsonProcess)
@@ -190,11 +187,12 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
 
                 if (dataContract.get(0).getResponse().equals("Success")){
                     finish();
-                    StepViewerAct.dataContract = dataContract.get(0);
-                    startActivity(new Intent(ScanQR.this, StepViewerAct.class));
+                    MainStepAct.dataContract = dataContract.get(0);
+                    startActivity(new Intent(ScanQR.this, MainStepAct.class));
                 }
                 else{
                     component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                    resumeScanner("Resume");
                 }
 
                 progressDialog.dismiss();
@@ -202,6 +200,7 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
 
             @Override
             public void onFailure(Call<ArrayList<ModelContract>> call, Throwable t) {
+                resumeScanner("Resume");
                 progressDialog.dismiss();
                 if (t.getMessage().toString().contains("Unable to resolve host")){
                     component.makeSnackbar("Mohon periksa koneksi Internet Anda", R.drawable.snakbar_red);

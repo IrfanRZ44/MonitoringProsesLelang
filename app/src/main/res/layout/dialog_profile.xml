@@ -35,7 +35,7 @@
             android:layout_toRightOf="@+id/btnProfile"
             android:layout_marginLeft="@dimen/margin_small"
             android:layout_marginTop="@dimen/margin_small"
-            android:maxLines="1"
+            android:maxLines="2"
             />
         <TextView
             android:id="@+id/textEmail"
@@ -51,7 +51,6 @@
             android:fontFamily="@font/open_sans"
             android:textColor="@color/hitam"
             android:textSize="@dimen/text_font"
-            android:text="Irfan"
             android:maxLines="2"
             />
         <TextView

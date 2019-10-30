@@ -41,7 +41,7 @@ public class ModelContract {
     private String tglPrakualifikasi;
     @SerializedName("tgl_aanwizijing")
     @Expose
-    private Object tglAanwizijing;
+    private String tglAanwizijing;
     @SerializedName("tgl_pembukaansampul1")
     @Expose
     private String tglPembukaansampul1;
@@ -85,7 +85,7 @@ public class ModelContract {
      * @param noRak
      * @param step
      */
-    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPrakualifikasi, Object tglAanwizijing, String tglPembukaansampul1, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
+    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPrakualifikasi, String tglAanwizijing, String tglPembukaansampul1, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
         super();
         this.idProyek = idProyek;
         this.judulproyek = judulproyek;
@@ -194,11 +194,11 @@ public class ModelContract {
         this.tglPrakualifikasi = tglPrakualifikasi;
     }
 
-    public Object getTglAanwizijing() {
+    public String getTglAanwizijing() {
         return tglAanwizijing;
     }
 
-    public void setTglAanwizijing(Object tglAanwizijing) {
+    public void setTglAanwizijing(String tglAanwizijing) {
         this.tglAanwizijing = tglAanwizijing;
     }
 

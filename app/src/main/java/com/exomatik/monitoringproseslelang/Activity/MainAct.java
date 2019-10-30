@@ -1,25 +1,19 @@
 package com.exomatik.monitoringproseslelang.Activity;
 
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Paint;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import com.exomatik.monitoringproseslelang.Adapter.RecyclerContract;
 import com.exomatik.monitoringproseslelang.CustomDialog.DialogProfil;
@@ -51,6 +45,7 @@ public class MainAct extends AppCompatActivity {
     private CustomComponent component;
     private EditText et_cari;
     private ArrayList<ModelContract> listContract = new ArrayList<ModelContract>();
+    private SwipeRefreshLayout swipeRefresh;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,6 +63,7 @@ public class MainAct extends AppCompatActivity {
         btnProfile = findViewById(R.id.btnProfile);
         btnScan = findViewById(R.id.btnScan);
         et_cari = findViewById(R.id.et_cari);
+        swipeRefresh = findViewById(R.id.swipeRefresh);
 
         userSave = new UserSave(this);
         component = new CustomComponent(view, MainAct.this);
@@ -116,6 +112,14 @@ public class MainAct extends AppCompatActivity {
             }
         });
 
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                listContract.removeAll(listContract);
+                getDataContract();
+            }
+        });
+
         btnScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -148,17 +152,22 @@ public class MainAct extends AppCompatActivity {
                 if (dataContract.get(0).getResponse().equals("Success")){
                     listContract = dataContract;
                     setAdapter(dataContract);
-                }
-                else{
+                } else{
                     component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
                 }
 
                 progressDialog.dismiss();
+                if (swipeRefresh.isRefreshing()){
+                    swipeRefresh.setRefreshing(false);
+                }
             }
 
             @Override
             public void onFailure(Call<ArrayList<ModelContract>> call, Throwable t) {
                 progressDialog.dismiss();
+                if (swipeRefresh.isRefreshing()){
+                    swipeRefresh.setRefreshing(false);
+                }
                 if (t.getMessage().toString().contains("Unable to resolve host")){
                     component.makeSnackbar("Mohon periksa koneksi Internet Anda", R.drawable.snakbar_red);
                 }
@@ -179,13 +188,9 @@ public class MainAct extends AppCompatActivity {
         ItemClickSupport.addTo(rcStep).setOnItemClickListener(new ItemClickSupport.OnItemClickListener() {
             @Override
             public void onItemClicked(RecyclerView recyclerView, int position, View v) {
-                ActMainStep.dataContract = listContract.get(position);
-                startActivity(new Intent(MainAct.this, ActMainStep.class));
+                MainStepAct.dataContract = listContract.get(position);
+                startActivity(new Intent(MainAct.this, MainStepAct.class));
             }
         });
-    }
-
-    private void setData(ArrayList<ModelContract> listContract) {
-
     }
 }
