@@ -20,9 +20,22 @@
     <string name="step_9">Penunjukan Pemenang</string>
     <string name="step_10">Selesai</string>
     <string name="step_0">Belum di mulai</string>
+
+    <string name="docs_1">Dokumen Memo</string>
+    <string name="docs_2">Dokumen B.A. Prakualifikasi</string>
+    <string name="docs_3">Dokumen B.A. Aanwijzing</string>
+    <string name="docs_4">Dokumen B.A. Pembukaan Sampul 1</string>
+    <string name="docs_5">Dokumen B.A. Pembukaan Sampul 2</string>
+    <string name="docs_6">Dokumen B.A. Negosiasi</string>
+    <string name="docs_7">Dokumen B.A. Usulan Penetapan</string>
+    <string name="docs_8">Dokumen Surat Penunjukan Pemenang</string>
+    <string name="docs_9">Dokumen Kontrak</string>
+    <string name="docs_10">Dolby</string>
+    <string name="docs_0">Dokumen </string>
     <string name="text_unstepped">Mohon maaf, dokumen contract tidak tersedia atau contract belum sampai pada tahap ini</string>
     <string name="my_contact_person">My Contact Person</string>
     <string name="halo">Halo,</string>
     <string name="cari_contract">Cari Contract ?</string>
     <string name="informasi_contract">Informasi Contract</string>
+    <string name="step_in_progress">Mohon maaf, dokumen masih dalam tahap</string>
 </resources>

@@ -21,6 +21,9 @@ public class ModelStepContract {
     @SerializedName("id_dokumen")
     @Expose
     private String idDokumen;
+    @SerializedName("deskripsi_file")
+    @Expose
+    private String deskripsi_file;
     @SerializedName("datetime_create")
     @Expose
     private String datetimeCreate;
@@ -45,7 +48,7 @@ public class ModelStepContract {
      * @param datetimeCreate
      * @param url
      */
-    public ModelStepContract(String idFiles, String namaFile, String url, String idProyek, String idDokumen, String datetimeCreate, String response) {
+    public ModelStepContract(String idFiles, String namaFile, String url, String idProyek, String idDokumen, String datetimeCreate, String deskripsi_file, String response) {
         super();
         this.idFiles = idFiles;
         this.namaFile = namaFile;
@@ -53,7 +56,16 @@ public class ModelStepContract {
         this.idProyek = idProyek;
         this.idDokumen = idDokumen;
         this.datetimeCreate = datetimeCreate;
+        this.deskripsi_file = deskripsi_file;
         this.response = response;
+    }
+
+    public String getDeskripsi_file() {
+        return deskripsi_file;
+    }
+
+    public void setDeskripsi_file(String deskripsi_file) {
+        this.deskripsi_file = deskripsi_file;
     }
 
     public String getIdFiles() {

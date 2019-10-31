@@ -39,12 +39,15 @@ public class ModelContract {
     @SerializedName("tgl_prakualifikasi")
     @Expose
     private String tglPrakualifikasi;
-    @SerializedName("tgl_aanwizijing")
+    @SerializedName("tgl_aanwijizing")
     @Expose
-    private String tglAanwizijing;
+    private String tglaanwijzing;
     @SerializedName("tgl_pembukaansampul1")
     @Expose
     private String tglPembukaansampul1;
+    @SerializedName("tgl_pembukaansampul2")
+    @Expose
+    private String tglPembukaansampul2;
     @SerializedName("tgl_negosiasi")
     @Expose
     private String tglNegosiasi;
@@ -80,12 +83,12 @@ public class ModelContract {
      * @param lokasikerja
      * @param subStep
      * @param datetime
-     * @param tglAanwizijing
+     * @param tglaanwijzing
      * @param response
      * @param noRak
      * @param step
      */
-    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPrakualifikasi, String tglAanwizijing, String tglPembukaansampul1, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
+    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPrakualifikasi, String tglaanwijzing, String tglPembukaansampul1, String tglPembukaansampul2, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
         super();
         this.idProyek = idProyek;
         this.judulproyek = judulproyek;
@@ -98,12 +101,21 @@ public class ModelContract {
         this.komentar = komentar;
         this.tglPermintaanproyek = tglPermintaanproyek;
         this.tglPrakualifikasi = tglPrakualifikasi;
-        this.tglAanwizijing = tglAanwizijing;
+        this.tglaanwijzing = tglaanwijzing;
         this.tglPembukaansampul1 = tglPembukaansampul1;
+        this.tglPembukaansampul2 = tglPembukaansampul2;
         this.tglNegosiasi = tglNegosiasi;
         this.tglPenetapanpemenang = tglPenetapanpemenang;
         this.tglPenunjukanpemenang = tglPenunjukanpemenang;
         this.response = response;
+    }
+
+    public String getTglPembukaansampul2() {
+        return tglPembukaansampul2;
+    }
+
+    public void setTglPembukaansampul2(String tglPembukaansampul2) {
+        this.tglPembukaansampul2 = tglPembukaansampul2;
     }
 
     public String getIdProyek() {
@@ -194,12 +206,12 @@ public class ModelContract {
         this.tglPrakualifikasi = tglPrakualifikasi;
     }
 
-    public String getTglAanwizijing() {
-        return tglAanwizijing;
+    public String getTglaanwijzing() {
+        return tglaanwijzing;
     }
 
-    public void setTglAanwizijing(String tglAanwizijing) {
-        this.tglAanwizijing = tglAanwizijing;
+    public void setTglaanwijzing(String tglaanwijzing) {
+        this.tglaanwijzing = tglaanwijzing;
     }
 
     public String getTglPembukaansampul1() {

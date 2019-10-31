@@ -16,7 +16,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 
 import com.exomatik.monitoringproseslelang.Featured.CustomComponent;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
-import com.exomatik.monitoringproseslelang.Fragment.fragStep1;
+import com.exomatik.monitoringproseslelang.Fragment.fragStep;
 import com.exomatik.monitoringproseslelang.Fragment.fragStepMemo;
 import com.exomatik.monitoringproseslelang.Model.ModelCekImei;
 import com.exomatik.monitoringproseslelang.Model.ModelContract;
@@ -39,9 +39,9 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
     public static ModelContract dataContract;
     private ProgressDialog progressDialog;
     private CircleImageView imgUser;
-    private TextView namaUser;
+    private TextView namaUser, textHeader;
     private View view;
-    private fragStep1 fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10;
+    private fragStep fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10;
     private fragStepMemo fgDocs1;
     private CustomComponent component;
     private UserSave userSave;
@@ -58,6 +58,7 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
 
     private void init() {
         view = (View) findViewById(android.R.id.content);
+        textHeader = findViewById(R.id.textHeader);
 
         userSave = new UserSave(this);
         component = new CustomComponent(view, MainStepAct.this);
@@ -119,16 +120,17 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
         }
 
         fgDocs1 = new fragStepMemo(dataContract);
-        fgDocs2 = new fragStep1(dataStep2);
-        fgDocs3 = new fragStep1(dataStep3);
-        fgDocs4 = new fragStep1(dataStep4);
-        fgDocs5 = new fragStep1(dataStep5);
-        fgDocs6 = new fragStep1(dataStep6);
-        fgDocs7 = new fragStep1(dataStep7);
-        fgDocs8 = new fragStep1(dataStep8);
-        fgDocs9 = new fragStep1(dataStep9);
-        fgDocs10 = new fragStep1(dataStep10);
+        fgDocs2 = new fragStep(dataStep2, dataContract, 1);
+        fgDocs3 = new fragStep(dataStep3, dataContract, 2);
+        fgDocs4 = new fragStep(dataStep4, dataContract, 3);
+        fgDocs5 = new fragStep(dataStep5, dataContract, 4);
+        fgDocs6 = new fragStep(dataStep6, dataContract, 5);
+        fgDocs7 = new fragStep(dataStep7, dataContract, 6);
+        fgDocs8 = new fragStep(dataStep8, dataContract, 7);
+        fgDocs9 = new fragStep(dataStep9, dataContract, 8);
+        fgDocs10 = new fragStep(dataStep10, dataContract, 9);
 
+        textHeader.setText(getResources().getString(R.string.docs_1));
 
         getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                 , fgDocs1).commit();
@@ -156,33 +158,43 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
 
         if (id == R.id.nav_step1) {
+            textHeader.setText(getResources().getString(R.string.docs_1));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs1).commit();
         } else if (id == R.id.nav_step2) {
+            textHeader.setText(getResources().getString(R.string.step_2));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs2).commit();
         } else if (id == R.id.nav_step3) {
+            textHeader.setText(getResources().getString(R.string.docs_2));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs3).commit();
         } else if (id == R.id.nav_step4) {
+            textHeader.setText(getResources().getString(R.string.docs_3));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs4).commit();
         } else if (id == R.id.nav_step5) {
+            textHeader.setText(getResources().getString(R.string.docs_4));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs5).commit();
         } else if (id == R.id.nav_step6) {
+            textHeader.setText(getResources().getString(R.string.docs_5));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs6).commit();
         } else if (id == R.id.nav_step7) {
+            textHeader.setText(getResources().getString(R.string.docs_6));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs7).commit();
         } else if (id == R.id.nav_step8) {
+            textHeader.setText(getResources().getString(R.string.docs_7));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs8).commit();
         } else if (id == R.id.nav_step9) {
+            textHeader.setText(getResources().getString(R.string.docs_8));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs9).commit();
         } else if (id == R.id.nav_step10) {
+            textHeader.setText(getResources().getString(R.string.docs_9));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs10).commit();
         }

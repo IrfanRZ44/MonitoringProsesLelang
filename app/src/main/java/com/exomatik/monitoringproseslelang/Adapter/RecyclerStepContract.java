@@ -3,6 +3,7 @@ package com.exomatik.monitoringproseslelang.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,12 +13,14 @@ import androidx.annotation.RequiresApi;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import java.util.Date;
 
 /**
  * Created by IrfanRZ on 17/09/2018.
@@ -25,11 +28,15 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContract.bidangViewHolder> {
     private ArrayList<ModelStepContract> dataList;
+    private ModelContract dataContract;
     private Context context;
+    private int step;
 
-    public RecyclerStepContract(ArrayList<ModelStepContract> dataList, Context context) {
+    public RecyclerStepContract(ArrayList<ModelStepContract> dataList, Context context, ModelContract dataContract, int step) {
         this.dataList = dataList;
         this.context = context;
+        this.dataContract = dataContract;
+        this.step = step;
     }
 
     @Override
@@ -47,43 +54,66 @@ public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContr
         String text1 = dataList.get(position).getNamaFile().substring(0, 1);
         holder.textNamaFile.setText(dataList.get(position).getNamaFile());
         holder.textBulat.setText(text1);
-        holder.textTime.setText(dataList.get(position).getDatetimeCreate());
-        holder.textStep.setText(setStatus(dataList.get(position).getIdDokumen(), holder.imgBulat));
+        if (step == 9){
+            holder.textDesc.setText("Nomor Kontrak : " + dataContract.getNokontrak());
+        }
+        else {
+            holder.textDesc.setText(dataList.get(position).getDeskripsi_file());
+        }
+
+        setColor(holder.imgBulat, position);
+        selectDate(step, holder.textTime);
     }
 
-    private String setStatus(String step, CardView card){
-        if (step.equals("1")){
-            step = context.getResources().getString(R.string.step_1);
+    private void setColor(CardView card, int position){
+        if (position == 1){
             card.setCardBackgroundColor(Color.RED);
-        } else if (step.equals("2")){
-            step = context.getResources().getString(R.string.step_2);
+        } else if (position == 2){
             card.setCardBackgroundColor(Color.BLUE);
-        }else if (step.equals("3")){
-            step = context.getResources().getString(R.string.step_3);
+        }else if (position == 3){
             card.setCardBackgroundColor(Color.GREEN);
-        }else if (step.equals("4")){
-            step = context.getResources().getString(R.string.step_4);
+        }else if (position == 4){
             card.setCardBackgroundColor(Color.YELLOW);
-        }else if (step.equals("5")){
-            step = context.getResources().getString(R.string.step_5);
+        }else if (position == 5){
             card.setCardBackgroundColor(Color.BLACK);
-        }else if (step.equals("6")){
-            step = context.getResources().getString(R.string.step_6);
+        }else if (position == 6){
             card.setCardBackgroundColor(Color.RED);
-        }else if (step.equals("7")){
-            step = context.getResources().getString(R.string.step_7);
+        }else if (position == 7){
             card.setCardBackgroundColor(Color.BLUE);
-        }else if (step.equals("8")){
-            step = context.getResources().getString(R.string.step_8);
+        }else if (position == 8){
             card.setCardBackgroundColor(Color.GREEN);
-        }else if (step.equals("9")){
-            step = context.getResources().getString(R.string.step_9);
+        }else if (position == 9){
             card.setCardBackgroundColor(Color.YELLOW);
-        }else if (step.equals("10")){
-            step = context.getResources().getString(R.string.step_10);
+        }else if (position == 10){
             card.setCardBackgroundColor(Color.BLACK);
         }
-        return "Tahap " + step;
+    }
+
+    private void selectDate(int status, TextView textTime){
+        String tanggal = "";
+        if (status == 1){
+            tanggal = dataContract.getTglPermintaanproyek();
+        } else if (status == 2){
+            tanggal = dataContract.getTglPrakualifikasi();
+        }else if (status == 3){
+            tanggal = dataContract.getTglaanwijzing();
+        }else if (status == 4){
+            tanggal = dataContract.getTglPembukaansampul1();
+        }else if (status == 5){
+            tanggal = dataContract.getTglPembukaansampul2();
+        }else if (status == 6){
+            tanggal = dataContract.getTglNegosiasi();
+        }else if (status == 7){
+            tanggal = dataContract.getTglPenetapanpemenang();
+        }else if (status == 8){
+            tanggal = dataContract.getTglPenunjukanpemenang();
+        }else if (status == 9){
+            tanggal = dataContract.getDatetime();
+        }else if (status == 10){
+            tanggal = dataContract.getDatetime();
+        }
+
+        textTime.setText(tanggal);
     }
 
     @Override
@@ -92,7 +122,7 @@ public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContr
     }
 
     public class bidangViewHolder extends RecyclerView.ViewHolder {
-        private TextView textTime, textNamaFile, textBulat, textStep;
+        private TextView textTime, textNamaFile, textBulat, textDesc;
         private CardView imgBulat;
 
         public bidangViewHolder(View itemView) {
@@ -101,7 +131,7 @@ public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContr
             textTime = itemView.findViewById(R.id.textTime);
             textNamaFile = itemView.findViewById(R.id.textNamaFile);
             textBulat = itemView.findViewById(R.id.textBulat);
-            textStep = itemView.findViewById(R.id.textStep);
+            textDesc = itemView.findViewById(R.id.textDesc);
             imgBulat = itemView.findViewById(R.id.imgBulat);
         }
     }
