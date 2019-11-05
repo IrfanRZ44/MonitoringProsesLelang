@@ -1,9 +1,7 @@
 package com.exomatik.monitoringproseslelang.Fragment;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +17,6 @@ import com.exomatik.monitoringproseslelang.R;
 import java.util.ArrayList;
 
 import androidx.annotation.Nullable;
-import androidx.cardview.widget.CardView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -93,6 +90,12 @@ public class fragStep extends Fragment {
             textUnstepped.setText(getResources().getString(R.string.step_in_progress) + " " + getResources().getString(R.string.step_9));
         }else if (Integer.parseInt(dataContract.getStep()) == 10){
             textUnstepped.setText(getResources().getString(R.string.step_in_progress) + " " + getResources().getString(R.string.step_10));
+        }else if (Integer.parseInt(dataContract.getStep()) == 11){
+            textUnstepped.setText(getResources().getString(R.string.step_in_progress) + " " + getResources().getString(R.string.step_11));
+        }else if (Integer.parseInt(dataContract.getStep()) == 12){
+            textUnstepped.setText(getResources().getString(R.string.step_in_progress) + " " + getResources().getString(R.string.step_12));
+        }else if (Integer.parseInt(dataContract.getStep()) == 13){
+            textUnstepped.setText(getResources().getString(R.string.step_in_progress) + " " + getResources().getString(R.string.step_13));
         }
     }
 

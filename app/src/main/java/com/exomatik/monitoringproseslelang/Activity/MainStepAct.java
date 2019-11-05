@@ -41,7 +41,7 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
     private CircleImageView imgUser;
     private TextView namaUser, textHeader;
     private View view;
-    private fragStep fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10;
+    private fragStep fgDocs2, fgDocs3, fgDocs4, fgDocs5, fgDocs6, fgDocs7, fgDocs8, fgDocs9, fgDocs10, fgDocs11, fgDocs12, fgDocs13;
     private fragStepMemo fgDocs1;
     private CustomComponent component;
     private UserSave userSave;
@@ -84,7 +84,6 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
     }
 
     private void setData(ArrayList<ModelStepContract> dataStep) {
-        ArrayList<ModelStepContract> dataStep1 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep2 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep3 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep4 = new ArrayList<ModelStepContract>();
@@ -94,6 +93,9 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
         ArrayList<ModelStepContract> dataStep8 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep9 = new ArrayList<ModelStepContract>();
         ArrayList<ModelStepContract> dataStep10 = new ArrayList<ModelStepContract>();
+        ArrayList<ModelStepContract> dataStep11 = new ArrayList<ModelStepContract>();
+        ArrayList<ModelStepContract> dataStep12 = new ArrayList<ModelStepContract>();
+        ArrayList<ModelStepContract> dataStep13 = new ArrayList<ModelStepContract>();
 
         if (dataStep != null){
             for (int a = 0; a < dataStep.size(); a++){
@@ -115,6 +117,12 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
                     dataStep9.add(dataStep.get(a));
                 } else if (dataStep.get(a).getIdDokumen().equals("9")){
                     dataStep10.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("10")){
+                    dataStep11.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("11")){
+                    dataStep12.add(dataStep.get(a));
+                } else if (dataStep.get(a).getIdDokumen().equals("12")){
+                    dataStep13.add(dataStep.get(a));
                 }
             }
         }
@@ -129,6 +137,9 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
         fgDocs8 = new fragStep(dataStep8, dataContract, 7);
         fgDocs9 = new fragStep(dataStep9, dataContract, 8);
         fgDocs10 = new fragStep(dataStep10, dataContract, 9);
+        fgDocs11 = new fragStep(dataStep11, dataContract, 10);
+        fgDocs12 = new fragStep(dataStep12, dataContract, 11);
+        fgDocs13 = new fragStep(dataStep13, dataContract, 12);
 
         textHeader.setText(getResources().getString(R.string.docs_1));
 
@@ -166,37 +177,49 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs2).commit();
         } else if (id == R.id.nav_step3) {
-            textHeader.setText(getResources().getString(R.string.docs_2));
+            textHeader.setText(getResources().getString(R.string.docs_3));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs3).commit();
         } else if (id == R.id.nav_step4) {
-            textHeader.setText(getResources().getString(R.string.docs_3));
+            textHeader.setText(getResources().getString(R.string.docs_4));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs4).commit();
         } else if (id == R.id.nav_step5) {
-            textHeader.setText(getResources().getString(R.string.docs_4));
+            textHeader.setText(getResources().getString(R.string.docs_5));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs5).commit();
         } else if (id == R.id.nav_step6) {
-            textHeader.setText(getResources().getString(R.string.docs_5));
+            textHeader.setText(getResources().getString(R.string.docs_6));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs6).commit();
         } else if (id == R.id.nav_step7) {
-            textHeader.setText(getResources().getString(R.string.docs_6));
+            textHeader.setText(getResources().getString(R.string.docs_7));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs7).commit();
         } else if (id == R.id.nav_step8) {
-            textHeader.setText(getResources().getString(R.string.docs_7));
+            textHeader.setText(getResources().getString(R.string.docs_8));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs8).commit();
         } else if (id == R.id.nav_step9) {
-            textHeader.setText(getResources().getString(R.string.docs_8));
+            textHeader.setText(getResources().getString(R.string.docs_9));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs9).commit();
         } else if (id == R.id.nav_step10) {
-            textHeader.setText(getResources().getString(R.string.docs_9));
+            textHeader.setText(getResources().getString(R.string.docs_10));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs10).commit();
+        } else if (id == R.id.nav_step11) {
+            textHeader.setText(getResources().getString(R.string.docs_11));
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                    , fgDocs11).commit();
+        } else if (id == R.id.nav_step12) {
+            textHeader.setText(getResources().getString(R.string.docs_12));
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                    , fgDocs12).commit();
+        } else if (id == R.id.nav_step13) {
+            textHeader.setText(getResources().getString(R.string.docs_13));
+            getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
+                    , fgDocs13).commit();
         }
 
         drawer.closeDrawer(GravityCompat.START);

@@ -85,32 +85,38 @@ public class fragStepMemo extends Fragment {
 
     private void setData() {
         textJudul.setText("Nama Contract : " + dataContract.getJudulproyek());
-        textStep.setText("Status Kontrak : " + setStatus(dataContract.getStep()));
+        textStep.setText(setStatus(dataContract.getStep()));
         textNoRak.setText("Nomor Rak        : " + dataContract.getNoRak());
         textLokasi.setText("Lokasi Kerja      : " + dataContract.getLokasikerja());
     }
 
     private String setStatus(String step){
         if (step.equals("1")){
-            step = getResources().getString(R.string.step_1);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_1);
         } else if (step.equals("2")){
-            step = getResources().getString(R.string.step_2);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_2);
         }else if (step.equals("3")){
-            step = getResources().getString(R.string.step_3);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_3);
         }else if (step.equals("4")){
-            step = getResources().getString(R.string.step_4);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_4);
         }else if (step.equals("5")){
-            step = getResources().getString(R.string.step_5);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_5);
         }else if (step.equals("6")){
-            step = getResources().getString(R.string.step_6);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_6);
         }else if (step.equals("7")){
-            step = getResources().getString(R.string.step_7);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_7);
         }else if (step.equals("8")){
-            step = getResources().getString(R.string.step_8);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_8);
         }else if (step.equals("9")){
-            step = dataContract.getNokontrak();
+            step = "Status Kontrak : " + getResources().getString(R.string.step_9);
         }else if (step.equals("10")){
-            step = getResources().getString(R.string.step_10);
+            step = "Status Kontrak : " + getResources().getString(R.string.step_10);
+        }else if (step.equals("11")){
+            step = "Status Kontrak : " + getResources().getString(R.string.step_11);
+        }else if (step.equals("12")){
+            step = "Status Kontrak : " + getResources().getString(R.string.step_12);
+        }else if (step.equals("13")){
+            step = "Nomor Kontrak : " + dataContract.getNokontrak();
         } else {
             step = getResources().getString(R.string.step_0);
         }

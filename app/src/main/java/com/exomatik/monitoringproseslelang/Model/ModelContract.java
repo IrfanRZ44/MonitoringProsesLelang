@@ -36,12 +36,21 @@ public class ModelContract {
     @SerializedName("tgl_permintaanproyek")
     @Expose
     private String tglPermintaanproyek;
+    @SerializedName("tgl_pratender")
+    @Expose
+    private String tglPratender;
+    @SerializedName("tgl_bidderlist")
+    @Expose
+    private String tglBidderlist;
+    @SerializedName("tgl_rfq")
+    @Expose
+    private String tglRfq;
     @SerializedName("tgl_prakualifikasi")
     @Expose
     private String tglPrakualifikasi;
     @SerializedName("tgl_aanwijizing")
     @Expose
-    private String tglaanwijzing;
+    private String tglAanwijizing;
     @SerializedName("tgl_pembukaansampul1")
     @Expose
     private String tglPembukaansampul1;
@@ -71,24 +80,28 @@ public class ModelContract {
     /**
      * 
      * @param judulproyek
+     * @param tglBidderlist
      * @param tglPrakualifikasi
      * @param nokontrak
+     * @param tglPratender
      * @param idProyek
      * @param komentar
      * @param tglPenunjukanpemenang
      * @param tglPenetapanpemenang
      * @param tglPermintaanproyek
      * @param tglNegosiasi
+     * @param tglPembukaansampul2
+     * @param tglRfq
      * @param tglPembukaansampul1
      * @param lokasikerja
      * @param subStep
      * @param datetime
-     * @param tglaanwijzing
      * @param response
      * @param noRak
      * @param step
+     * @param tglAanwijizing
      */
-    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPrakualifikasi, String tglaanwijzing, String tglPembukaansampul1, String tglPembukaansampul2, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
+    public ModelContract(String idProyek, String judulproyek, String nokontrak, String noRak, String lokasikerja, String datetime, String step, String subStep, String komentar, String tglPermintaanproyek, String tglPratender, String tglBidderlist, String tglRfq, String tglPrakualifikasi, String tglAanwijizing, String tglPembukaansampul1, String tglPembukaansampul2, String tglNegosiasi, String tglPenetapanpemenang, String tglPenunjukanpemenang, String response) {
         super();
         this.idProyek = idProyek;
         this.judulproyek = judulproyek;
@@ -100,22 +113,17 @@ public class ModelContract {
         this.subStep = subStep;
         this.komentar = komentar;
         this.tglPermintaanproyek = tglPermintaanproyek;
+        this.tglPratender = tglPratender;
+        this.tglBidderlist = tglBidderlist;
+        this.tglRfq = tglRfq;
         this.tglPrakualifikasi = tglPrakualifikasi;
-        this.tglaanwijzing = tglaanwijzing;
+        this.tglAanwijizing = tglAanwijizing;
         this.tglPembukaansampul1 = tglPembukaansampul1;
         this.tglPembukaansampul2 = tglPembukaansampul2;
         this.tglNegosiasi = tglNegosiasi;
         this.tglPenetapanpemenang = tglPenetapanpemenang;
         this.tglPenunjukanpemenang = tglPenunjukanpemenang;
         this.response = response;
-    }
-
-    public String getTglPembukaansampul2() {
-        return tglPembukaansampul2;
-    }
-
-    public void setTglPembukaansampul2(String tglPembukaansampul2) {
-        this.tglPembukaansampul2 = tglPembukaansampul2;
     }
 
     public String getIdProyek() {
@@ -198,6 +206,30 @@ public class ModelContract {
         this.tglPermintaanproyek = tglPermintaanproyek;
     }
 
+    public String getTglPratender() {
+        return tglPratender;
+    }
+
+    public void setTglPratender(String tglPratender) {
+        this.tglPratender = tglPratender;
+    }
+
+    public String getTglBidderlist() {
+        return tglBidderlist;
+    }
+
+    public void setTglBidderlist(String tglBidderlist) {
+        this.tglBidderlist = tglBidderlist;
+    }
+
+    public String getTglRfq() {
+        return tglRfq;
+    }
+
+    public void setTglRfq(String tglRfq) {
+        this.tglRfq = tglRfq;
+    }
+
     public String getTglPrakualifikasi() {
         return tglPrakualifikasi;
     }
@@ -206,12 +238,12 @@ public class ModelContract {
         this.tglPrakualifikasi = tglPrakualifikasi;
     }
 
-    public String getTglaanwijzing() {
-        return tglaanwijzing;
+    public String getTglAanwijizing() {
+        return tglAanwijizing;
     }
 
-    public void setTglaanwijzing(String tglaanwijzing) {
-        this.tglaanwijzing = tglaanwijzing;
+    public void setTglAanwijizing(String tglAanwijizing) {
+        this.tglAanwijizing = tglAanwijizing;
     }
 
     public String getTglPembukaansampul1() {
@@ -220,6 +252,14 @@ public class ModelContract {
 
     public void setTglPembukaansampul1(String tglPembukaansampul1) {
         this.tglPembukaansampul1 = tglPembukaansampul1;
+    }
+
+    public String getTglPembukaansampul2() {
+        return tglPembukaansampul2;
+    }
+
+    public void setTglPembukaansampul2(String tglPembukaansampul2) {
+        this.tglPembukaansampul2 = tglPembukaansampul2;
     }
 
     public String getTglNegosiasi() {

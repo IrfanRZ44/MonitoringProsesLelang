@@ -3,7 +3,6 @@ package com.exomatik.monitoringproseslelang.Adapter;
 import android.content.Context;
 import android.graphics.Color;
 import android.os.Build;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,10 +16,7 @@ import com.exomatik.monitoringproseslelang.Model.ModelContract;
 import com.exomatik.monitoringproseslelang.Model.ModelStepContract;
 import com.exomatik.monitoringproseslelang.R;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 
 /**
  * Created by IrfanRZ on 17/09/2018.
@@ -54,7 +50,7 @@ public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContr
         String text1 = dataList.get(position).getNamaFile().substring(0, 1);
         holder.textNamaFile.setText(dataList.get(position).getNamaFile());
         holder.textBulat.setText(text1);
-        if (step == 9){
+        if (step == 12){
             holder.textDesc.setText("Nomor Kontrak : " + dataContract.getNokontrak());
         }
         else {
@@ -94,22 +90,28 @@ public class RecyclerStepContract extends RecyclerView.Adapter<RecyclerStepContr
         if (status == 1){
             tanggal = dataContract.getTglPermintaanproyek();
         } else if (status == 2){
+            tanggal = dataContract.getTglPratender();
+        } else if (status == 3){
+            tanggal = dataContract.getTglBidderlist();
+        } else if (status == 4){
+            tanggal = dataContract.getTglRfq();
+        } else if (status == 5){
             tanggal = dataContract.getTglPrakualifikasi();
-        }else if (status == 3){
-            tanggal = dataContract.getTglaanwijzing();
-        }else if (status == 4){
-            tanggal = dataContract.getTglPembukaansampul1();
-        }else if (status == 5){
-            tanggal = dataContract.getTglPembukaansampul2();
         }else if (status == 6){
-            tanggal = dataContract.getTglNegosiasi();
+            tanggal = dataContract.getTglAanwijizing();
         }else if (status == 7){
-            tanggal = dataContract.getTglPenetapanpemenang();
+            tanggal = dataContract.getTglPembukaansampul1();
         }else if (status == 8){
-            tanggal = dataContract.getTglPenunjukanpemenang();
+            tanggal = dataContract.getTglPembukaansampul2();
         }else if (status == 9){
-            tanggal = dataContract.getDatetime();
+            tanggal = dataContract.getTglNegosiasi();
         }else if (status == 10){
+            tanggal = dataContract.getTglPenetapanpemenang();
+        }else if (status == 11){
+            tanggal = dataContract.getTglPenunjukanpemenang();
+        }else if (status == 12){
+            tanggal = dataContract.getDatetime();
+        }else if (status == 13){
             tanggal = dataContract.getDatetime();
         }
 

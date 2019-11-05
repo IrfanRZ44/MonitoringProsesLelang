@@ -92,4 +92,31 @@
             n1:icon="@drawable/ic_step_white"
             n1:title="@string/step_10" />
     </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup11"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step11"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_11" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup12"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step12"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_12" />
+    </group>
+    <group android:checkableBehavior="single"
+        android:id="@+id/nav_grup13"
+        android:visible="true"
+        >
+        <item
+            n1:id="@+id/nav_step13"
+            n1:icon="@drawable/ic_step_white"
+            n1:title="@string/step_13" />
+    </group>
 </menu>
