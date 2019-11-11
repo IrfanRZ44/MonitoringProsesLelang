@@ -5,8 +5,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
     <string name="username_empty">Username can\'t be empty</string>
     <string name="password_empty">Password can\'t be empty</string>
-
     <string name="imei_empty">Failed to get IMEI</string>
+
     <string name="mohon_tunggu">Mohon Tunggu</string>
 
     <string name="step_1">Mulai</string>
@@ -20,23 +20,24 @@
     <string name="step_9">Pembukaan Sampul 2</string>
     <string name="step_10">Negosiasi</string>
     <string name="step_11">Penetapan Pemenang</string>
-    <string name="step_12">Penunjukan Pemenang</string>
+    <string name="step_12">Surat Penunjukan Pemenang</string>
     <string name="step_13">Selesai</string>
     <string name="step_0">Belum di mulai</string>
 
     <string name="docs_1">Dokumen Memo</string>
-    <string name="docs_2">Dokumen Notulen Rapat</string>
-    <string name="docs_3">Dokumen Bidderlist</string>
-    <string name="docs_4">Dokumen RFQ</string>
-    <string name="docs_5">Dokumen B.A. Prakualifikasi</string>
-    <string name="docs_6">Dokumen B.A. Aanwijzing</string>
-    <string name="docs_7">Dokumen B.A. Pembukaan Sampul 1</string>
-    <string name="docs_8">Dokumen B.A. Pembukaan Sampul 2</string>
-    <string name="docs_9">Dokumen B.A. Negosiasi</string>
-    <string name="docs_10">Dokumen B.A. Usulan Penetapan</string>
-    <string name="docs_11">Dokumen Surat Penunjukan Pemenang</string>
-    <string name="docs_12">Dokumen Kontrak</string>
-    <string name="docs_13">Dolby</string>
+    <string name="docs_2">Dokumen Permintaan Proyek</string>
+    <string name="docs_3">Dokumen Notulen Rapat</string>
+    <string name="docs_4">Dokumen Bidderlist</string>
+    <string name="docs_5">Dokumen RFQ</string>
+    <string name="docs_6">Dokumen B.A. Prakualifikasi</string>
+    <string name="docs_7">Dokumen B.A. Aanwijzing</string>
+    <string name="docs_8">Dokumen B.A. Pembukaan Sampul 1</string>
+    <string name="docs_9">Dokumen B.A. Pembukaan Sampul 2</string>
+    <string name="docs_10">Dokumen B.A. Negosiasi</string>
+    <string name="docs_11">Dokumen B.A. Usulan Penetapan</string>
+    <string name="docs_12">Dokumen Surat Penunjukan Pemenang</string>
+    <string name="docs_13">Dokumen Kontrak</string>
+    <string name="docs_14">Dolby</string>
     <string name="docs_0">Dokumen </string>
     <string name="text_unstepped">Mohon maaf, dokumen contract tidak tersedia atau contract belum sampai pada tahap ini</string>
     <string name="my_contact_person">My Contact Person</string>

@@ -219,6 +219,7 @@ public class MainAct extends AppCompatActivity {
                 if (dataContract.getResponse().equals("Match")) {
 
                 } else {
+                    userSave.setKEY_USER(null);
                     Intent homeIntent = new Intent(MainAct.this, SplashAct.class);
                     startActivity(homeIntent);
                     finish();

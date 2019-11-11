@@ -23,9 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="@dimen/margin_big"
-        android:layout_marginRight="@dimen/margin_big"
-        android:layout_marginBottom="@dimen/margin_big"
+        android:layout_margin="@dimen/margin_standard_big"
         android:id="@+id/rlDownload"
         >
         <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -36,6 +34,8 @@
             android:id="@+id/btnDownload"
             app:fabSize="normal"
             app:maxImageSize="@dimen/width40"
+            android:layout_marginBottom="@dimen/margin_standard"
+            android:layout_marginRight="@dimen/margin_standard"
             />
     </RelativeLayout>
 </RelativeLayout>

@@ -173,7 +173,7 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs1).commit();
         } else if (id == R.id.nav_step2) {
-            textHeader.setText(getResources().getString(R.string.step_2));
+            textHeader.setText(getResources().getString(R.string.docs_2));
             getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container
                     , fgDocs2).commit();
         } else if (id == R.id.nav_step3) {
