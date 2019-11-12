@@ -52,4 +52,10 @@ dependencies {
 
     //date
 //    implementation 'joda-time:joda-time:2.10.5'
+
+    implementation('com.crashlytics.sdk.android:crashlytics:2.10.1@aar') {
+        transitive = true;
+    }
 }
+
+apply plugin: 'io.fabric'

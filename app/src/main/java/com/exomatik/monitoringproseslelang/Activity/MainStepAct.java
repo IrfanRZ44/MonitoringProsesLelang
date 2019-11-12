@@ -56,9 +56,15 @@ public class MainStepAct extends AppCompatActivity implements NavigationView.OnN
         onClick();
     }
 
+    public void forceCrash() {
+        throw new RuntimeException("This is a crash");
+    }
+
     private void init() {
         view = (View) findViewById(android.R.id.content);
         textHeader = findViewById(R.id.textHeader);
+
+//        forceCrash();
 
         userSave = new UserSave(this);
         component = new CustomComponent(view, MainStepAct.this);

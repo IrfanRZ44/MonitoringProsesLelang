@@ -6,9 +6,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
+import com.crashlytics.android.Crashlytics;
 import com.exomatik.monitoringproseslelang.Featured.UserSave;
 import com.exomatik.monitoringproseslelang.R;
 import com.victor.loading.newton.NewtonCradleLoading;
+
+import io.fabric.sdk.android.Fabric;
 
 public class SplashAct extends AppCompatActivity {
     private NewtonCradleLoading loadingBar;
@@ -24,6 +27,7 @@ public class SplashAct extends AppCompatActivity {
     }
 
     private void init() {
+        Fabric.with(this, new Crashlytics());
         loadingBar = (NewtonCradleLoading) findViewById(R.id.loadingBar);
 
         userSave = new UserSave(this);
