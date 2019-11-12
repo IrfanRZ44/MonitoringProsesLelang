@@ -94,17 +94,17 @@ public class DocumentViewerAct extends AppCompatActivity {
     }
 
     private void onClick() {
-        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                setWebView();
-                new Handler().postDelayed(new Runnable() {
-                    public void run() {
-                        swipeRefresh.setRefreshing(false);
-                    }
-                }, 2000L);
-            }
-        });
+//        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                setWebView();
+//                new Handler().postDelayed(new Runnable() {
+//                    public void run() {
+//                        swipeRefresh.setRefreshing(false);
+//                    }
+//                }, 2000L);
+//            }
+//        });
 
         btnDownload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -161,14 +161,14 @@ public class DocumentViewerAct extends AppCompatActivity {
             public void onPageFinished(WebView view, String weburl) {
 
                 if (jalan) {
-                    swipeRefresh.setEnabled(true);
+                    swipeRefresh.setEnabled(false);
                     swipeRefresh.setRefreshing(false);
                     progressDialog.dismiss();
                     jalan = false;
                 }
 
                 if (view.getContentHeight() == 0){
-                    swipeRefresh.setRefreshing(true);
+                    swipeRefresh.setRefreshing(false);
                     jalan = true;
                     setWebView();
                 }

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -174,6 +175,8 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
         body.put("level", userSave.getKEY_USER().getLevel());
         body.put("idContract", result);
 
+        Log.e("Body", body.toString());
+
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(RetrofitApi.jsonProcess)
                 .addConverterFactory(GsonConverterFactory.create())
@@ -187,13 +190,19 @@ public class ScanQR extends AppCompatActivity implements ZXingScannerView.Result
             public void onResponse(Call<ArrayList<ModelContract>> call, Response<ArrayList<ModelContract>> response) {
                 ArrayList<ModelContract> dataContract = response.body();
 
-                if (dataContract.get(0).getResponse().equals("Success")){
-                    finish();
-                    MainStepAct.dataContract = dataContract.get(0);
-                    startActivity(new Intent(ScanQR.this, MainStepAct.class));
+                if (dataContract.size() == 1){
+                    if (dataContract.get(0).getResponse().equals("Success")){
+                        finish();
+                        MainStepAct.dataContract = dataContract.get(0);
+                        startActivity(new Intent(ScanQR.this, MainStepAct.class));
+                    }
+                    else{
+                        component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                        resumeScanner("Resume");
+                    }
                 }
-                else{
-                    component.makeSnackbar(dataContract.get(0).getResponse(), R.drawable.snakbar_red);
+                else {
+                    component.makeSnackbar("QR Code Tidak Valid", R.drawable.snakbar_red);
                     resumeScanner("Resume");
                 }
 
